@@ -15,6 +15,7 @@ public abstract class Unit {
 	
 	protected float mStateTime;
 	protected float mSpeed;
+	protected int mMovementState;
 	protected TextureRegion mCurrentFrame;
 	
 	//Animations
@@ -50,6 +51,10 @@ public abstract class Unit {
 		
 		//Width
 		mWidth = mIdleFrames[0].getRegionWidth();
+	}
+	
+	public void setCallback(IUnitCallback callback) {
+		mUnitCallback = callback;
 	}
 	
 	public void isFliped(boolean flip) {
@@ -114,12 +119,12 @@ public abstract class Unit {
 				mTime = 0;
 				mPosition.x = mDestination.x;
 				mPosition.y = mDestination.y;
-				mUnitCallback.unitStopped(this);
+				mUnitCallback.unitStopped(this, mMovementState);
 			}
 		}
 	}
 	
-	public void moveTo(float x, float y, float time) {
+	public void moveTo(float x, float y, float time, int state) {
 		if(time <= 0) {
 			mDestination.x = mPosition.x = x;
 			mDestination.y = mPosition.y = y;
@@ -127,11 +132,12 @@ public abstract class Unit {
 			mDestination.x = x;
 			mDestination.y = y;
 			mTime = time;
+			mMovementState = state;
 		}
 	}
 	
 	public interface IUnitCallback {
-		public void unitStopped(Unit unit);
+		public void unitStopped(Unit unit, int state);
 	}
 	
 	public String toString() {

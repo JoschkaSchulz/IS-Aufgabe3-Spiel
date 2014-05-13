@@ -113,8 +113,7 @@ public class Player implements IUnitCallback{
 	}
 
 	@Override
-	public void unitStopped(Unit unit) {
-		// TODO Auto-generated method stub
+	public void unitStopped(Unit unit, int state) {
 		
 	}
 }
