@@ -1,5 +1,7 @@
 package de.potoopirate.arena.game;
 
+import java.util.Arrays;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -9,8 +11,10 @@ import de.potoopirate.arena.unit.Unit;
 
 public class Fight implements Unit.IUnitCallback{
 
-	public static final int UNITSTATE_UNDEFINED    	= 0;
-	public static final int UNITSTATE_REACHEDFIGHT 	= 1;
+	public static final int UNITSTATE_UNDEFINED    		= 0;
+	public static final int UNITSTATE_REACHED_FIGHT 	= 1;
+	public static final int UNITSTATE_REACHED_QUEUE_END = 2;
+	public static final int UNITSTATE_ORDER_IN_QUEUE 	= 3;
 	
 	private Unit unit1;
 	private Unit unit2;
@@ -20,6 +24,8 @@ public class Fight implements Unit.IUnitCallback{
 	
 	private Vector2 mLeftPosition;
 	private Vector2 mRightPosition;
+
+	private boolean mFightPossible = true;
 	
 	public Fight(Player player1, Player player2) {
 		mPlayer1 = player1;
@@ -30,19 +36,20 @@ public class Fight implements Unit.IUnitCallback{
 	 * triggers if the clock runs out.b
 	 */
 	public void clockAction() {
+		mFightPossible = true;
 		unit1 = null;
 		unit2 = null;
 		try {
 			unit1 = mPlayer1.getQueue().pop();
 			unit1.setCallback(this);
-			unit1.moveTo(Game.POSITION_LEFT_FIGHT.x, Game.POSITION_LEFT_FIGHT.y, 2f, UNITSTATE_REACHEDFIGHT);
+			unit1.moveTo(Game.POSITION_LEFT_FIGHT.x, Game.POSITION_LEFT_FIGHT.y, 2f, UNITSTATE_REACHED_FIGHT);
 		} catch (NoUnitException e) {
 		}
 
 		try {
 			unit2 = mPlayer2.getQueue().pop();
 			unit2.setCallback(this);
-			unit2.moveTo(Game.POSITION_RIGHT_FIGHT.x, Game.POSITION_RIGHT_FIGHT.y, 2f, UNITSTATE_REACHEDFIGHT);
+			unit2.moveTo(Game.POSITION_RIGHT_FIGHT.x, Game.POSITION_RIGHT_FIGHT.y, 2f, UNITSTATE_REACHED_FIGHT);
 		} catch (NoUnitException e) {
 		}
 	}
@@ -58,16 +65,40 @@ public class Fight implements Unit.IUnitCallback{
 	}
 
 	private void fight() {
-		
+		unit1.moveTo(mPlayer1.getQueue().getLastPositionX(), unit1.getY(), 3f, UNITSTATE_REACHED_QUEUE_END);
+		unit2.moveTo(mPlayer2.getQueue().getLastPositionX(), unit2.getY(), 3f, UNITSTATE_REACHED_QUEUE_END);
+	}
+	
+	private void reachedEndQueue() {
+		unit1.moveTo(mPlayer1.getQueue().getLastPositionX(), mPlayer1.getQueue().getY(), 1f, UNITSTATE_ORDER_IN_QUEUE);
+		unit2.moveTo(mPlayer2.getQueue().getLastPositionX(), mPlayer2.getQueue().getY(), 1f, UNITSTATE_ORDER_IN_QUEUE);
+	}
+	
+	private void orderInQueue() {
+		if(unit1 != null) {
+			mPlayer1.getQueue().add(unit1);
+			unit1 = null;
+		}
+		if(unit2 != null) {
+			mPlayer2.getQueue().add(unit2);
+			unit2 = null;
+		}
 	}
 	
 	@Override
 	public void unitStopped(Unit unit, int state) {
 		switch(state) {
-			case UNITSTATE_REACHEDFIGHT:
+			case UNITSTATE_REACHED_FIGHT:
 				System.out.println("Unit reached the fight!");
-				fight();
+				if(mFightPossible) fight();
 				break;
+			case UNITSTATE_REACHED_QUEUE_END:
+				reachedEndQueue();
+				break;
+			case UNITSTATE_ORDER_IN_QUEUE:
+				orderInQueue();
+				break;
+				
 		}
 	}
 }

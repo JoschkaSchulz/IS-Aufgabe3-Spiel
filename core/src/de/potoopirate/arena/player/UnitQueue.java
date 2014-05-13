@@ -1,13 +1,15 @@
 package de.potoopirate.arena.player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 import de.potoopirate.arena.unit.Unit;
 
-public class UnitQueue {
+public class UnitQueue{
 	
 	public static final int ORIENTATION_LEFT 	= 0;
 	public static final int ORIENTATION_RIGHT 	= 1;
@@ -25,11 +27,22 @@ public class UnitQueue {
 		mOrientation = orientation;
 	}
 	
+	public void reorder() {
+		for(int i = 0; i < mUnits.size(); i++) {
+			if(mOrientation == ORIENTATION_LEFT) {
+				mUnits.get(i).moveTo(mPosition.x-(i*128), mPosition.y, 2f);
+			}else{
+				mUnits.get(i).moveTo(mPosition.x+(i*128), mPosition.y, 2f);
+			}
+		}
+	}
+	
 	public Unit pop() throws NoUnitException{
 		if(mUnits.size() > 0) {
 			if(mUnits.get(0) != null) {
 				Unit u = mUnits.get(0);
 				mUnits.remove(0);
+				reorder();
 				return u;
 			}else{
 				throw new NoUnitException("The Element is null.");
@@ -44,14 +57,7 @@ public class UnitQueue {
 			unit.setPosition(mPosition.x, mPosition.y);
 		}else{
 			//calculate the current position in queue
-			float tmpX = mPosition.x;
-			for(Unit u : mUnits) {
-				if(mOrientation == ORIENTATION_LEFT) {
-					tmpX -= 10 + u.getWidth();
-				}else{
-					tmpX += 10 + u.getWidth();
-				}
-			}
+			float tmpX = getLastPositionX();
 			unit.setPosition(tmpX, mPosition.y);
 		}
 		
@@ -59,6 +65,20 @@ public class UnitQueue {
 		if(mOrientation == ORIENTATION_RIGHT) unit.isFliped(true);
 		
 		mUnits.add(unit);
+		
+		reorder();
+	}
+	
+	public float getY() {
+		return mPosition.y;
+	}
+	
+	public float getLastPositionX() {
+		if(mOrientation == ORIENTATION_LEFT) {
+			return mPosition.x-(mUnits.size()*128);
+		}else{
+			return mPosition.x+(mUnits.size()*128);
+		}
 	}
 	
 	public int getSize() {

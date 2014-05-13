@@ -61,6 +61,10 @@ public abstract class Unit {
 		isFliped = flip;
 	}
 	
+	public float getY() {
+		return mPosition.y;
+	}
+	
 	public void setPosition(float x, float y) {
 		mPosition.x = x;
 		mPosition.y = y;
@@ -122,6 +126,10 @@ public abstract class Unit {
 				mUnitCallback.unitStopped(this, mMovementState);
 			}
 		}
+	}
+	
+	public void moveTo(float x, float y, float time) {
+		moveTo(x, y, time, -1);
 	}
 	
 	public void moveTo(float x, float y, float time, int state) {
