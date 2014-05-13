@@ -28,7 +28,9 @@ public class UnitQueue {
 	public Unit pop() throws NoUnitException{
 		if(mUnits.size() > 0) {
 			if(mUnits.get(0) != null) {
-				return mUnits.get(0);
+				Unit u = mUnits.get(0);
+				mUnits.remove(0);
+				return u;
 			}else{
 				throw new NoUnitException("The Element is null.");
 			}

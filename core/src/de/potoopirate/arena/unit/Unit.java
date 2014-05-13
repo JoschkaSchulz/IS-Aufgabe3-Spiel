@@ -133,4 +133,8 @@ public abstract class Unit {
 	public interface IUnitCallback {
 		public void unitStopped(Unit unit);
 	}
+	
+	public String toString() {
+		return "Unit: " + mPosition.toString();
+	}
 }

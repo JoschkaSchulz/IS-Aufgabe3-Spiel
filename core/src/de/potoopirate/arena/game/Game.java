@@ -12,10 +12,14 @@ import de.potoopirate.arena.utils.ResourceLoader;
 
 public class Game implements Screen,IClockListener{
 	
+	private Fight mFight;
+	
 	private Clock mClock;
+	
 	private Player mPlayer1;
 	private Player mPlayer2;
 	private PlayersHUD mPlayersHud;
+	
 	private Arena mArena;
 	
 	public Game(Arena arena) {
@@ -24,12 +28,14 @@ public class Game implements Screen,IClockListener{
 		mPlayersHud = new PlayersHUD(mPlayer1, mPlayer2);
 		
 		mClock = new Clock(this, mPlayer1, mPlayer2);
+		mFight = new Fight(mPlayer1, mPlayer2);
 		
 		mArena = arena;
 	}
 
 	public void act(float delta) {
 		mClock.act(delta);
+		mFight.act(delta);
 		mPlayer1.act(delta);
 		mPlayer2.act(delta);
 	}
@@ -40,6 +46,7 @@ public class Game implements Screen,IClockListener{
 		mPlayer1.resetCursor();
 		mPlayer2.clockAction();
 		mPlayer2.resetCursor();
+		mFight.clockAction();
 		System.out.println("Clock action!");
 	}
 
@@ -57,6 +64,7 @@ public class Game implements Screen,IClockListener{
         //Draw Player
         mPlayer1.draw(mArena.getBatch());
         mPlayer2.draw(mArena.getBatch());
+        mFight.draw(mArena.getBatch());
         
 		//HUD Backgrounds
         mArena.getBatch().draw(ResourceLoader.LEFT_PLAYER_BACKGROUND, 0, 0);
@@ -67,6 +75,7 @@ public class Game implements Screen,IClockListener{
         
         //Clock
         mClock.draw(mArena.getBatch());
+        
 		mArena.getBatch().end();
 	}
 

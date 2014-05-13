@@ -48,6 +48,10 @@ public class Player implements IUnitCallback{
 		this.mChoiseBlocked = mChoiseBlocked;
 	}
 
+	public UnitQueue getQueue() {
+		return mQueue;
+	}
+	
 	public int getCursor() {
 		return mCursor;
 	}
