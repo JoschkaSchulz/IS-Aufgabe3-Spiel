@@ -57,11 +57,16 @@ public class Fight implements Unit.IUnitCallback{
 		if(unit2 != null) unit2.draw(batch);
 	}
 
+	private void fight() {
+		
+	}
+	
 	@Override
 	public void unitStopped(Unit unit, int state) {
 		switch(state) {
 			case UNITSTATE_REACHEDFIGHT:
 				System.out.println("Unit reached the fight!");
+				fight();
 				break;
 		}
 	}

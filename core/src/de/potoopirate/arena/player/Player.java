@@ -23,6 +23,7 @@ public class Player implements IUnitCallback{
 	private int mPlayerNumber;
 	private boolean mChoiseBlocked;
 	private int mCursor;
+	private int mChicken;
 	
 	private UnitQueue mQueue;
 	
@@ -30,6 +31,7 @@ public class Player implements IUnitCallback{
 		mPlayerNumber = playerNumber;
 		mCursor = CURSOR_IDLE;
 		mChoiseBlocked = false;
+		mChicken = 0;
 		if(playerNumber == PLAYER_1) {
 			mQueue = new UnitQueue(350,400);
 		}else{
@@ -75,6 +77,10 @@ public class Player implements IUnitCallback{
 			case Player.CURSOR_IDLE:
 				break;
 		}
+	}
+	
+	public void addChicken() {
+		mChicken++;
 	}
 	
 	public void draw(SpriteBatch batch) {
