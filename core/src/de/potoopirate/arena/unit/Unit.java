@@ -24,6 +24,8 @@ public abstract class Unit {
 	//Movement
 	protected Vector2 mPosition;
 	protected Vector2 mDestination;
+	protected float mWidth;
+	protected boolean isFliped;
 	private float mTime;
 	
 	//Callback
@@ -36,6 +38,7 @@ public abstract class Unit {
 		mHealth = 3;
 		mSpeed = 50;
 		mUnitCallback = unitCallback;
+		isFliped = false;
 		
 		//Walking Animation
 		mIdleFrames = new TextureRegion[5];
@@ -44,16 +47,37 @@ public abstract class Unit {
 		}
 		mIdleAnimation = new Animation(0.25f, mIdleFrames);
 		mIdleAnimation.setPlayMode(PlayMode.LOOP);
+		
+		//Width
+		mWidth = mIdleFrames[0].getRegionWidth();
+	}
+	
+	public void isFliped(boolean flip) {
+		isFliped = flip;
+	}
+	
+	public void setPosition(float x, float y) {
+		mPosition.x = x;
+		mPosition.y = y;
+	}
+	
+	public float getWidth() {
+		return mWidth;
 	}
 	
 	public void draw(SpriteBatch batch) {
 		batch.draw(mCurrentFrame, mPosition.x, mPosition.y);
+//		batch.draw(mCurrentFrame.getTexture(), mPosition.x, mPosition.y, 
+//				(float)mCurrentFrame.getRegionWidth(), (float)mCurrentFrame.getRegionHeight(), 
+//				0, 0, mCurrentFrame.getRegionWidth(), mCurrentFrame.getRegionHeight(), 
+//				isFliped, false);
 	}
 	
 	public void act(float deltaTime){
 		mStateTime += deltaTime;
 		
-		mCurrentFrame = mIdleAnimation.getKeyFrame(mStateTime);
+		mCurrentFrame = new TextureRegion(mIdleAnimation.getKeyFrame(mStateTime));
+		mCurrentFrame.flip(isFliped, false);
 		
 		//very simple movement
 		handleMovement(deltaTime);

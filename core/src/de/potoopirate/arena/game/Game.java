@@ -36,7 +36,9 @@ public class Game implements Screen,IClockListener{
 	
 	@Override
 	public void clockAction() {
+		mPlayer1.clockAction();
 		mPlayer1.resetCursor();
+		mPlayer2.clockAction();
 		mPlayer2.resetCursor();
 		System.out.println("Clock action!");
 	}
@@ -51,14 +53,15 @@ public class Game implements Screen,IClockListener{
         
         //draw
         mArena.getBatch().begin();
-		//Backgrounds
+        
+        //Draw Player
+        mPlayer1.draw(mArena.getBatch());
+        mPlayer2.draw(mArena.getBatch());
+        
+		//HUD Backgrounds
         mArena.getBatch().draw(ResourceLoader.LEFT_PLAYER_BACKGROUND, 0, 0);
         mArena.getBatch().draw(ResourceLoader.RIGHT_PLAYER_BACKGROUND, 640, 0);
         
-        //Font test
-        ResourceLoader.FONT.draw(mArena.getBatch(), "<fonttest>Das Spiel kann beginnen</fonttest>",
-        		500, 500);
-
         //Players Hud
         mPlayersHud.draw(mArena.getBatch());
         
