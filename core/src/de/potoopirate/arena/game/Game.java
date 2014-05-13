@@ -1,8 +1,13 @@
 package de.potoopirate.arena.game;
 
+import sun.font.GlyphLayout.LayoutEngineFactory;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector2;
 
 import de.potoopirate.arena.Arena;
 import de.potoopirate.arena.game.Clock.IClockListener;
@@ -11,6 +16,11 @@ import de.potoopirate.arena.player.PlayersHUD;
 import de.potoopirate.arena.utils.ResourceLoader;
 
 public class Game implements Screen,IClockListener{
+	
+	public static final Vector2 POSITION_LEFT_FIGHT = new Vector2(500, 500);
+	public static final Vector2 POSITION_RIGHT_FIGHT = new Vector2(600, 500);
+	
+	private ShapeRenderer mDebugRenderer;
 	
 	private Fight mFight;
 	
@@ -29,6 +39,8 @@ public class Game implements Screen,IClockListener{
 		
 		mClock = new Clock(this, mPlayer1, mPlayer2);
 		mFight = new Fight(mPlayer1, mPlayer2);
+		
+		mDebugRenderer = new ShapeRenderer();
 		
 		mArena = arena;
 	}
@@ -77,41 +89,42 @@ public class Game implements Screen,IClockListener{
         mClock.draw(mArena.getBatch());
         
 		mArena.getBatch().end();
+		
+		//Debug Renderer
+		mDebugRenderer.begin(ShapeType.Line);
+		mDebugRenderer.setColor(1f, 0f, 0f, 1f);
+		mDebugRenderer.rect(POSITION_LEFT_FIGHT.x, POSITION_LEFT_FIGHT.y, 128, 256);
+		mDebugRenderer.rect(POSITION_RIGHT_FIGHT.x, POSITION_RIGHT_FIGHT.y, 128, 256);
+		mDebugRenderer.end();
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		
 	}
 }

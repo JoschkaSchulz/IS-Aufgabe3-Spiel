@@ -24,7 +24,7 @@ public class Fight {
 	}
 	
 	/**
-	 * triggers if the clock runs out.
+	 * triggers if the clock runs out.b
 	 */
 	public void clockAction() {
 		try {
