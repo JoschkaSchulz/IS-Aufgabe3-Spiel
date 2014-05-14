@@ -11,9 +11,10 @@ public class Knight extends Unit {
 	public Knight(IUnitCallback unitCallback) {
 		super(unitCallback);
 
-		mIdleFrames = new TextureRegion[4];
-		for(int i = 0; i < ResourceLoader.MOVE_DUMMY[1].length; i++) {
-			mIdleFrames[i] = ResourceLoader.MOVE_DUMMY[1][i];
+		mIdleFrames = new TextureRegion[2];
+		// for(int i = 0; i < ResourceLoader.KNIGHT[0].length; i++) {
+		for (int i = 0; i < 2; i++) {
+			mIdleFrames[i] = ResourceLoader.KNIGHT[0][i];
 		}
 		mIdleAnimation = new Animation(0.25f, mIdleFrames);
 		mIdleAnimation.setPlayMode(PlayMode.LOOP);

@@ -39,7 +39,7 @@ public abstract class Unit {
 		mHealth = 3;
 		mSpeed = 50;
 		mUnitCallback = unitCallback;
-		isFliped = false;
+		isFliped = true;
 		
 		//Walking Animation
 		mIdleFrames = new TextureRegion[5];

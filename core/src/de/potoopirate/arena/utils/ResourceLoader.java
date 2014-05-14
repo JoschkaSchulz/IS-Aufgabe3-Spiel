@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class ResourceLoader {
 	static public TextureRegion[][] UNIT_DUMMY;
 	static public TextureRegion[][] MOVE_DUMMY;
+	static public TextureRegion[][] MAGE;
+	static public TextureRegion[][] KNIGHT;
+	static public TextureRegion[][] ARCHER;
 	static public TextureRegion[] CLOCK;
 	static public final int CLOCK_IMAGES = 9;
 	static public TextureRegion LEFT_PLAYER_BACKGROUND;
@@ -24,6 +27,13 @@ public class ResourceLoader {
 		UNIT_DUMMY = TextureRegion.split(unitDummy, 128, 128);
 		Texture moveDummy = new Texture("gfx/moveit.png");
 		MOVE_DUMMY = TextureRegion.split(moveDummy, 128, 256);
+		
+		Texture archer = new Texture("gfx/archer.png");
+		ARCHER = TextureRegion.split(archer, 209, 256);
+		Texture mage = new Texture("gfx/mage.png");
+		MAGE = TextureRegion.split(mage, 205, 256);
+		Texture knight = new Texture("gfx/knight.png");
+		KNIGHT = TextureRegion.split(knight, 242, 256);
 		
 		
 		Texture clock = new Texture("gfx/clock.png");

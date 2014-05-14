@@ -62,7 +62,7 @@ public class UnitQueue{
 		}
 		
 		//Flip unit
-		if(mOrientation == ORIENTATION_RIGHT) unit.isFliped(true);
+		if(mOrientation == ORIENTATION_RIGHT) unit.isFliped(false);
 		
 		mUnits.add(unit);
 		
