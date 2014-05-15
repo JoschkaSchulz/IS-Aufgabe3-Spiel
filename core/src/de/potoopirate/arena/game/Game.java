@@ -38,7 +38,7 @@ public class Game implements Screen,IClockListener{
 		mPlayersHud = new PlayersHUD(mPlayer1, mPlayer2);
 		
 		mClock = new Clock(this, mPlayer1, mPlayer2);
-		mFight = new Fight(mPlayer1, mPlayer2);
+		mFight = new Fight(this, mPlayer1, mPlayer2);
 		
 		mDebugRenderer = new ShapeRenderer();
 		
@@ -50,6 +50,10 @@ public class Game implements Screen,IClockListener{
 		mFight.act(delta);
 		mPlayer1.act(delta);
 		mPlayer2.act(delta);
+	}
+	
+	public void startClock() {
+		mClock.resumeClock();
 	}
 	
 	@Override

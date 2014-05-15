@@ -22,7 +22,7 @@ public class Clock {
 	
 	public Clock(IClockListener game, Player player1, Player player2) {
 		mGame = game;
-		isPaused = true;
+		isPaused = false;
 		mX = (Gdx.graphics.getWidth()/2) - (ResourceLoader.CLOCK[0].getRegionWidth()/2);
 		mY = (Gdx.graphics.getHeight()/2) - (ResourceLoader.CLOCK[0].getRegionHeight()/2) - 100;
 		mStateTime = 0;
@@ -41,7 +41,7 @@ public class Clock {
 				mPlayer2.setmChoiseBlocked(true);
 			}
 		}
-		if(Gdx.input.isKeyPressed(Keys.SPACE)) resumeClock();
+//		if(Gdx.input.isKeyPressed(Keys.SPACE)) resumeClock();
 	}
 	
 	public void resumeClock() {
