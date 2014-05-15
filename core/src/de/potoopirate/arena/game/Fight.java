@@ -88,21 +88,25 @@ public class Fight implements Unit.IUnitCallback {
 	
 	public void walkToEnd() {
 		unit1.setAnimationState(Unit.STATE_MOVE);
+		unit1.isFliped(false);
 		unit1.moveTo(mPlayer1.getQueue().getLastPositionX(), unit1.getY(), 3f,
 				UNITSTATE_REACHED_QUEUE_END);
 		
 		unit2.setAnimationState(Unit.STATE_MOVE);
+		unit2.isFliped(true);
 		unit2.moveTo(mPlayer2.getQueue().getLastPositionX(), unit2.getY(), 3f,
 				UNITSTATE_REACHED_QUEUE_END);
 	}
 	
 	private void reachedEndQueue() {
 		unit1.setAnimationState(Unit.STATE_MOVE);
+		unit1.isFliped(true);
 		unit1.moveTo(mPlayer1.getQueue().getLastPositionX(), mPlayer1
 				.getQueue().getY(), 1f, UNITSTATE_ORDER_IN_QUEUE);
 		
 
 		unit2.setAnimationState(Unit.STATE_MOVE);
+		unit2.isFliped(false);
 		unit2.moveTo(mPlayer2.getQueue().getLastPositionX(), mPlayer2
 				.getQueue().getY(), 1f, UNITSTATE_ORDER_IN_QUEUE);
 	}
