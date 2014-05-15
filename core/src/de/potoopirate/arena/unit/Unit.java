@@ -34,6 +34,39 @@ public abstract class Unit {
 
 	// Movement
 	protected Vector2 mPosition;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (isFliped ? 1231 : 1237);
+		result = prime * result
+				+ ((mPosition == null) ? 0 : mPosition.hashCode());
+		result = prime * result + Float.floatToIntBits(mStateTime);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Unit other = (Unit) obj;
+		if (isFliped != other.isFliped)
+			return false;
+		if (mPosition == null) {
+			if (other.mPosition != null)
+				return false;
+		} else if (!mPosition.equals(other.mPosition))
+			return false;
+		if (Float.floatToIntBits(mStateTime) != Float
+				.floatToIntBits(other.mStateTime))
+			return false;
+		return true;
+	}
+
 	protected Vector2 mDestination;
 	protected float mWidth;
 	protected boolean isFliped;
@@ -117,6 +150,9 @@ public abstract class Unit {
 		batch.draw(mCurrentFrame, mPosition.x, mPosition.y,
 				mCurrentFrame.getRegionWidth() / 2,
 				mCurrentFrame.getRegionHeight() / 2);
+		ResourceLoader.FONT.draw(batch, "Leben: " + getHealth(), 
+				mPosition.x + (mCurrentFrame.getRegionWidth()/4 - 30), 
+				mPosition.y + (mCurrentFrame.getRegionHeight()/2)+20);
 		// batch.draw(mCurrentFrame.getTexture(), mPosition.x, mPosition.y,
 		// (float)mCurrentFrame.getRegionWidth(),
 		// (float)mCurrentFrame.getRegionHeight(),
@@ -221,5 +257,15 @@ public abstract class Unit {
 
 	public String toString() {
 		return "Unit: " + mPosition.toString();
+	}
+	
+	public abstract void attack(Unit unit);
+	
+	public int getHealth() {
+		return mHealth;
+	}
+	
+	public void setHealth(int health) {
+		mHealth = health;
 	}
 }

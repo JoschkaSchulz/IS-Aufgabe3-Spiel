@@ -31,4 +31,13 @@ public class Knight extends Unit {
 		mFightAnimation.setPlayMode(PlayMode.NORMAL);
 	}
 
+	@Override
+	public void attack(Unit unit) {
+		if(unit instanceof Archer) {
+			unit.setHealth(unit.getHealth()-1);
+		}else if(unit instanceof Mage) {
+			unit.setHealth(unit.getHealth()-2);
+		}
+	}
+
 }

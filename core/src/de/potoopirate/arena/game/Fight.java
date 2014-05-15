@@ -79,42 +79,65 @@ public class Fight implements Unit.IUnitCallback {
 	}
 
 	private void fight() {
-		unit1.setAnimationState(Unit.STATE_FIGHT, Unit.STATE_MOVE);
-		unit2.setAnimationState(Unit.STATE_FIGHT, Unit.STATE_MOVE);
+		if(unit1 != null) {
+			unit1.setAnimationState(Unit.STATE_FIGHT, Unit.STATE_MOVE);
+		}
+		
+		if(unit2 != null) {
+			unit2.setAnimationState(Unit.STATE_FIGHT, Unit.STATE_MOVE);	
+		}
+		
 	}
 
 	@Override
 	public void unitFinishedFight(Unit unit) {
-		unitStopped(unit, UNITSTATE_FIGHT_END);
+		if(unit1 != null) unit1.attack(unit2);
+		if(unit2 != null) unit2.attack(unit1);
+		
+		if(unit1 != null && unit1.getHealth() <= 0) unit1 = null;
+		if(unit2 != null && unit2.getHealth() <= 0) unit2 = null;
+		
+		//If both are dead start the clock again
+		if(unit1 == null && unit2 == null) {
+			mGame.clockAction();
+		}else{
+			unitStopped(unit, UNITSTATE_FIGHT_END);
+		}
 	}
 	
 	public void walkToEnd() {
-		unit1.setAnimationState(Unit.STATE_MOVE);
-		unit1.isFliped(false);
-		unit1.moveTo(mPlayer1.getQueue().getLastPositionX(), unit1.getY(), 1f,
-				UNITSTATE_REACHED_QUEUE_END);
+		if(unit1 != null) {
+			unit1.setAnimationState(Unit.STATE_MOVE);
+			unit1.isFliped(false);
+			unit1.moveTo(mPlayer1.getQueue().getLastPositionX(), unit1.getY(), 1f,
+					UNITSTATE_REACHED_QUEUE_END);
+		}
 		
-		unit2.setAnimationState(Unit.STATE_MOVE);
-		unit2.isFliped(true);
-		unit2.moveTo(mPlayer2.getQueue().getLastPositionX(), unit2.getY(), 1f,
-				UNITSTATE_REACHED_QUEUE_END);
-		
+		if(unit2 != null) {
+			unit2.setAnimationState(Unit.STATE_MOVE);
+			unit2.isFliped(true);
+			unit2.moveTo(mPlayer2.getQueue().getLastPositionX(), unit2.getY(), 1f,
+					UNITSTATE_REACHED_QUEUE_END);
+		}
 
 		//resume the clock
 		mGame.startClock();
 	}
 	
 	private void reachedEndQueue() {
-		unit1.setAnimationState(Unit.STATE_MOVE);
-		unit1.isFliped(true);
-		unit1.moveTo(mPlayer1.getQueue().getLastPositionX(), mPlayer1
-				.getQueue().getY(), 0.25f, UNITSTATE_ORDER_IN_QUEUE);
-		
+		if(unit1 != null) {
+			unit1.setAnimationState(Unit.STATE_MOVE);
+			unit1.isFliped(true);
+			unit1.moveTo(mPlayer1.getQueue().getLastPositionX(), mPlayer1
+					.getQueue().getY(), 0.25f, UNITSTATE_ORDER_IN_QUEUE);
+		}
 
-		unit2.setAnimationState(Unit.STATE_MOVE);
-		unit2.isFliped(false);
-		unit2.moveTo(mPlayer2.getQueue().getLastPositionX(), mPlayer2
-				.getQueue().getY(), 0.25f, UNITSTATE_ORDER_IN_QUEUE);
+		if(unit2 != null) {
+			unit2.setAnimationState(Unit.STATE_MOVE);
+			unit2.isFliped(false);
+			unit2.moveTo(mPlayer2.getQueue().getLastPositionX(), mPlayer2
+					.getQueue().getY(), 0.25f, UNITSTATE_ORDER_IN_QUEUE);
+		}
 	}
 
 	private void orderInQueue() {
@@ -136,8 +159,8 @@ public class Fight implements Unit.IUnitCallback {
 	public void unitStopped(Unit unit, int state) {
 		switch (state) {
 			case UNITSTATE_REACHED_FIGHT:
-				System.out.println("Unit reached the fight!");
 				if (mFightPossible)
+					mFightPossible = false;
 					fight();
 				break;
 			case UNITSTATE_FIGHT_END:
@@ -148,6 +171,7 @@ public class Fight implements Unit.IUnitCallback {
 				break;
 			case UNITSTATE_ORDER_IN_QUEUE:
 				orderInQueue();
+				mFightPossible = true;
 				break;
 			default:
 				break;

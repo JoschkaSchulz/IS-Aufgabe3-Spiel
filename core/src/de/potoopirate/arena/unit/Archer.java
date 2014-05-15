@@ -33,4 +33,13 @@ public class Archer extends Unit {
 
 	}
 
+	@Override
+	public void attack(Unit unit) {
+		if(unit instanceof Mage) {
+			unit.setHealth(unit.getHealth()-1);
+		}else if(unit instanceof Knight) {
+			unit.setHealth(unit.getHealth()-2);
+		}
+	}
+
 }
