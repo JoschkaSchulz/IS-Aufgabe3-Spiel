@@ -1,12 +1,9 @@
 package de.potoopirate.arena.player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.sun.javafx.collections.SetAdapterChange;
 
 import de.potoopirate.arena.unit.Unit;
 import de.potoopirate.arena.unit.Unit.IUnitCallback;
