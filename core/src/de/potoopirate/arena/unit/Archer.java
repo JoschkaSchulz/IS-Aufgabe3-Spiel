@@ -30,6 +30,15 @@ public class Archer extends Unit {
 
 		mFightAnimation = new Animation(0.25f, mFightFrames);
 		mFightAnimation.setPlayMode(PlayMode.NORMAL);
+		
+		mMoveFrames = new TextureRegion[4];
+		System.out.println("mage2: "+ ResourceLoader.ARCHER[2].length);
+		
+		for (int i = 0; i < ResourceLoader.ARCHER[2].length; i++) {
+			mMoveFrames[i] = ResourceLoader.ARCHER[2][i];
+		}
+		mMoveAnimation = new Animation(0.25f, mMoveFrames);
+		mMoveAnimation.setPlayMode(PlayMode.LOOP);
 
 	}
 

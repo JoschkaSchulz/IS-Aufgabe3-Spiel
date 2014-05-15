@@ -29,6 +29,15 @@ public class Knight extends Unit {
 
 		mFightAnimation = new Animation(0.25f, mFightFrames);
 		mFightAnimation.setPlayMode(PlayMode.NORMAL);
+		
+		mMoveFrames = new TextureRegion[4];
+		System.out.println("mage2: "+ ResourceLoader.KNIGHT[2].length);
+		
+		for (int i = 0; i < ResourceLoader.KNIGHT[2].length; i++) {
+			mMoveFrames[i] = ResourceLoader.KNIGHT[2][i];
+		}
+		mMoveAnimation = new Animation(0.25f, mMoveFrames);
+		mMoveAnimation.setPlayMode(PlayMode.LOOP);
 	}
 
 	@Override
