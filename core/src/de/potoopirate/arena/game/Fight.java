@@ -98,6 +98,10 @@ public class Fight implements Unit.IUnitCallback {
 		unit2.isFliped(true);
 		unit2.moveTo(mPlayer2.getQueue().getLastPositionX(), unit2.getY(), 1f,
 				UNITSTATE_REACHED_QUEUE_END);
+		
+
+		//resume the clock
+		mGame.startClock();
 	}
 	
 	private void reachedEndQueue() {
@@ -126,9 +130,6 @@ public class Fight implements Unit.IUnitCallback {
 			unit2.setCallback(mPlayer2.getQueue());
 			unit2 = null;
 		}
-		
-		//resume the clock
-		mGame.startClock();
 	}
 	
 	@Override
