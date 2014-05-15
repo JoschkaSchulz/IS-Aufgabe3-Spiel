@@ -17,8 +17,8 @@ import de.potoopirate.arena.utils.ResourceLoader;
 
 public class Game implements Screen,IClockListener{
 	
-	public static final Vector2 POSITION_LEFT_FIGHT = new Vector2(507, 500);
-	public static final Vector2 POSITION_RIGHT_FIGHT = new Vector2(645, 500);
+	public static final Vector2 POSITION_LEFT_FIGHT = new Vector2(507, 540);
+	public static final Vector2 POSITION_RIGHT_FIGHT = new Vector2(645, 540);
 	
 	private ShapeRenderer mDebugRenderer;
 	

@@ -13,6 +13,8 @@ public class UnitQueue implements IUnitCallback{
 	public static final int ORIENTATION_LEFT 	= 0;
 	public static final int ORIENTATION_RIGHT 	= 1;
 	
+	public static final int UNIT_WIDTH = 85;
+	
 	private ArrayList<Unit> mUnits;
 	private Vector2 mPosition;
 	private int mOrientation;
@@ -31,13 +33,13 @@ public class UnitQueue implements IUnitCallback{
 		for(int i = 0; i < mUnits.size(); i++) {
 			unit = mUnits.get(i);
 			if(mOrientation == ORIENTATION_LEFT) {
-				if(unit.getX() < mPosition.x-(i*128) && unit.getX() > mPosition.x-(i*128) + 5) 
+				if(unit.getX() < mPosition.x-(i*UNIT_WIDTH)) //Toleranz: && unit.getX() > mPosition.x-(i*UNIT_WIDTH) + 5) 
 					unit.setAnimationState(Unit.STATE_MOVE);
-				unit.moveTo(mPosition.x-(i*128), mPosition.y, 2f);
+				unit.moveTo(mPosition.x-(i*UNIT_WIDTH), mPosition.y, 2f);
 			}else{
-				if(unit.getX() > mPosition.x-(i*128) && unit.getX() < mPosition.x-(i*128) - 5) 
+				if(unit.getX() > mPosition.x-(i*UNIT_WIDTH)) //Toleranz: && unit.getX() < mPosition.x-(i*UNIT_WIDTH) - 5) 
 					unit.setAnimationState(Unit.STATE_MOVE);
-				unit.moveTo(mPosition.x+(i*128), mPosition.y, 2f);
+				unit.moveTo(mPosition.x+(i*UNIT_WIDTH), mPosition.y, 2f);
 			}
 		}
 	}
@@ -80,9 +82,9 @@ public class UnitQueue implements IUnitCallback{
 	
 	public float getLastPositionX() {
 		if(mOrientation == ORIENTATION_LEFT) {
-			return mPosition.x-(mUnits.size()*128);
+			return mPosition.x-(mUnits.size()*UNIT_WIDTH);
 		}else{
-			return mPosition.x+(mUnits.size()*128);
+			return mPosition.x+(mUnits.size()*UNIT_WIDTH);
 		}
 	}
 	
