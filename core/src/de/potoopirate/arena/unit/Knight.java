@@ -18,6 +18,17 @@ public class Knight extends Unit {
 		}
 		mIdleAnimation = new Animation(0.25f, mIdleFrames);
 		mIdleAnimation.setPlayMode(PlayMode.LOOP);
+		
+		mFightFrames = new TextureRegion[6];
+		int k = 2;
+		mFightFrames[0]= ResourceLoader.KNIGHT[0][0];
+		for (int i = 1; i < 6; i++) {
+				mFightFrames[i] = ResourceLoader.KNIGHT[(i+1)/4][k++%4];
+			
+		}
+
+		mFightAnimation = new Animation(0.25f, mFightFrames);
+		mFightAnimation.setPlayMode(PlayMode.NORMAL);
 	}
 
 }

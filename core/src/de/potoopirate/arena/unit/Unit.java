@@ -21,6 +21,8 @@ public abstract class Unit {
 	// Animations
 	protected TextureRegion[] mIdleFrames;
 	protected Animation mIdleAnimation;
+	protected TextureRegion[] mFightFrames;
+	protected Animation mFightAnimation;
 
 	// Movement
 	protected Vector2 mPosition;
@@ -48,6 +50,13 @@ public abstract class Unit {
 		}
 		mIdleAnimation = new Animation(0.25f, mIdleFrames);
 		mIdleAnimation.setPlayMode(PlayMode.LOOP);
+		
+		mFightFrames = new TextureRegion[4];
+		for (int i = 0; i < ResourceLoader.MOVE_DUMMY[0].length; i++) {
+			mFightFrames[i] = ResourceLoader.MOVE_DUMMY[0][i];
+		}
+		mFightAnimation = new Animation(0.25f, mFightFrames);
+		mFightAnimation.setPlayMode(PlayMode.NORMAL);
 
 		// Width
 		mWidth = mIdleFrames[0].getRegionWidth();
@@ -96,6 +105,7 @@ public abstract class Unit {
 		// very simple movement
 		handleMovement(deltaTime);
 	}
+	
 
 	/**
 	 * Handles the movement of the Unit over time
