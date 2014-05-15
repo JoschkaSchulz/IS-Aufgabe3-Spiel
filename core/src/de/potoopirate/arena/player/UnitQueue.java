@@ -6,10 +6,12 @@ import java.util.Arrays;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.sun.javafx.collections.SetAdapterChange;
 
 import de.potoopirate.arena.unit.Unit;
+import de.potoopirate.arena.unit.Unit.IUnitCallback;
 
-public class UnitQueue{
+public class UnitQueue implements IUnitCallback{
 	
 	public static final int ORIENTATION_LEFT 	= 0;
 	public static final int ORIENTATION_RIGHT 	= 1;
@@ -28,11 +30,17 @@ public class UnitQueue{
 	}
 	
 	public void reorder() {
+		Unit unit;
 		for(int i = 0; i < mUnits.size(); i++) {
+			unit = mUnits.get(i);
 			if(mOrientation == ORIENTATION_LEFT) {
-				mUnits.get(i).moveTo(mPosition.x-(i*128), mPosition.y, 2f);
+				if(unit.getX() < mPosition.x-(i*128) && unit.getX() > mPosition.x-(i*128) + 5) 
+					unit.setAnimationState(Unit.STATE_MOVE);
+				unit.moveTo(mPosition.x-(i*128), mPosition.y, 2f);
 			}else{
-				mUnits.get(i).moveTo(mPosition.x+(i*128), mPosition.y, 2f);
+				if(unit.getX() > mPosition.x-(i*128) && unit.getX() < mPosition.x-(i*128) - 5) 
+					unit.setAnimationState(Unit.STATE_MOVE);
+				unit.moveTo(mPosition.x+(i*128), mPosition.y, 2f);
 			}
 		}
 	}
@@ -95,5 +103,15 @@ public class UnitQueue{
 		for(Unit unit : mUnits) {
 			unit.draw(batch);
 		}
+	}
+
+	@Override
+	public void unitStopped(Unit unit, int state) {
+		unit.setAnimationState(Unit.STATE_IDLE);
+	}
+
+	@Override
+	public void unitFinishedFight(Unit unit) {
+		
 	}
 }

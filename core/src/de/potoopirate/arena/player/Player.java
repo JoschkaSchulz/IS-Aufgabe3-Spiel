@@ -11,7 +11,7 @@ import de.potoopirate.arena.unit.Unit;
 import de.potoopirate.arena.unit.Unit.IUnitCallback;
 import de.potoopirate.arena.utils.ResourceLoader;
 
-public class Player implements IUnitCallback{
+public class Player{
 	public static final int CURSOR_IDLE 	= 0;
 	public static final int CURSOR_MAGE 	= 1;
 	public static final int CURSOR_ARCHER 	= 2;
@@ -38,8 +38,8 @@ public class Player implements IUnitCallback{
 			mQueue = new UnitQueue(800,400);
 			mQueue.setOrientation(UnitQueue.ORIENTATION_RIGHT);
 		}
-		mQueue.add(new Archer(this));
-		mQueue.add(new Archer(this));
+		mQueue.add(new Archer(mQueue));
+		mQueue.add(new Archer(mQueue));
 	}
 	
 	public boolean ismChoiseBlocked() {
@@ -65,13 +65,13 @@ public class Player implements IUnitCallback{
 	public void clockAction() {
 		switch(getCursor()) {
 			case Player.CURSOR_KNIGHT:
-				mQueue.add(new Knight(this));
+				mQueue.add(new Knight(mQueue));
 				break;
 			case Player.CURSOR_MAGE:
-				mQueue.add(new Mage(this));
+				mQueue.add(new Mage(mQueue));
 				break;
 			case Player.CURSOR_ARCHER:
-				mQueue.add(new Archer(this));
+				mQueue.add(new Archer(mQueue));
 				break;
 			default:
 			case Player.CURSOR_IDLE:
@@ -116,10 +116,5 @@ public class Player implements IUnitCallback{
 					break;
 			}
 		}
-	}
-
-	@Override
-	public void unitStopped(Unit unit, int state) {
-		
 	}
 }

@@ -11,6 +11,10 @@ import de.potoopirate.arena.utils.ResourceLoader;
 
 public abstract class Unit {
 
+	public static final int STATE_IDLE = 0;
+	public static final int STATE_MOVE = 1;
+	public static final int STATE_FIGHT = 2;
+	
 	protected int mHealth;
 
 	protected float mStateTime;
@@ -23,6 +27,10 @@ public abstract class Unit {
 	protected Animation mIdleAnimation;
 	protected TextureRegion[] mFightFrames;
 	protected Animation mFightAnimation;
+	protected TextureRegion[] mMoveFrames;
+	protected Animation mMoveAnimation;
+	protected int mAnimationState;
+	protected int mFollowAnimation;
 
 	// Movement
 	protected Vector2 mPosition;
@@ -42,6 +50,7 @@ public abstract class Unit {
 		mSpeed = 50;
 		mUnitCallback = unitCallback;
 		isFliped = true;
+		mAnimationState = mFollowAnimation = STATE_IDLE;
 
 		// Walking Animation
 		mIdleFrames = new TextureRegion[5];
@@ -58,10 +67,27 @@ public abstract class Unit {
 		mFightAnimation = new Animation(0.25f, mFightFrames);
 		mFightAnimation.setPlayMode(PlayMode.NORMAL);
 
+		mMoveFrames = new TextureRegion[4];
+		for (int i = 0; i < ResourceLoader.MOVE_DUMMY[0].length; i++) {
+			mMoveFrames[i] = ResourceLoader.MOVE_DUMMY[0][i];
+		}
+		mMoveAnimation = new Animation(0.25f, mMoveFrames);
+		mMoveAnimation.setPlayMode(PlayMode.LOOP);
+
 		// Width
 		mWidth = mIdleFrames[0].getRegionWidth();
 	}
 
+	public void setAnimationState(int state, int followAnimation) {
+		mFollowAnimation = followAnimation;
+		setAnimationState(state);
+	}
+	
+	public void setAnimationState(int state) {
+		mAnimationState = state;
+		mStateTime = 0;
+	}
+	
 	public void setCallback(IUnitCallback callback) {
 		mUnitCallback = callback;
 	}
@@ -72,6 +98,10 @@ public abstract class Unit {
 
 	public float getY() {
 		return mPosition.y;
+	}
+	
+	public float getX() {
+		return mPosition.x;
 	}
 
 	public void setPosition(float x, float y) {
@@ -97,9 +127,32 @@ public abstract class Unit {
 
 	public void act(float deltaTime) {
 		mStateTime += deltaTime;
-
-		mCurrentFrame = new TextureRegion(
-				mIdleAnimation.getKeyFrame(mStateTime));
+		
+		switch(mAnimationState) {
+			default:
+			case STATE_IDLE:
+				mCurrentFrame = new TextureRegion(
+						mIdleAnimation.getKeyFrame(mStateTime));
+				break;
+			case STATE_MOVE:
+				mCurrentFrame = new TextureRegion(
+						mMoveAnimation.getKeyFrame(mStateTime));
+				break;
+			case STATE_FIGHT:
+				if(mFightAnimation.isAnimationFinished(mStateTime)) {
+					mUnitCallback.unitFinishedFight(this);
+					setAnimationState(mFollowAnimation);
+					mFollowAnimation = STATE_IDLE;
+					mCurrentFrame = new TextureRegion(
+						mIdleAnimation.getKeyFrame(mStateTime));
+				}else{
+					mCurrentFrame = new TextureRegion(
+						mFightAnimation.getKeyFrame(mStateTime));
+				}
+				break;
+		}
+		
+		//Flip the unit if it's on the right side
 		mCurrentFrame.flip(isFliped, false);
 
 		// very simple movement
@@ -163,6 +216,7 @@ public abstract class Unit {
 
 	public interface IUnitCallback {
 		public void unitStopped(Unit unit, int state);
+		public void unitFinishedFight(Unit unit);
 	}
 
 	public String toString() {
