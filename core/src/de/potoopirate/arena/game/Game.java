@@ -76,6 +76,8 @@ public class Game implements Screen,IClockListener{
         
         //draw
         mArena.getBatch().begin();
+        mArena.getBatch().draw(ResourceLoader.FIELD[0], 0, 0);
+        mArena.getBatch().draw(ResourceLoader.FIELD[1], 640, 0);
         mArena.getBatch().draw(ResourceLoader.RING, 408, 450);
         
         //Draw Player

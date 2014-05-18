@@ -11,15 +11,16 @@ public class ResourceLoader {
 	static public TextureRegion[][] KNIGHT;
 	static public TextureRegion[][] ARCHER;
 	static public TextureRegion[] CLOCK;
+	static public TextureRegion[] FIELD;
 	static public final int CLOCK_IMAGES = 9;
-	static public TextureRegion RING;
-	static public TextureRegion LEFT_PLAYER_BACKGROUND;
-	static public TextureRegion RIGHT_PLAYER_BACKGROUND;
+	static public TextureRegion CURSOR;
 	static public TextureRegion ICON_MAGE;
 	static public TextureRegion ICON_KIGHT;
 	static public TextureRegion ICON_ARCHER;
 	static public TextureRegion ICON_IDLE;
-	static public TextureRegion CURSOR;
+	static public TextureRegion LEFT_PLAYER_BACKGROUND;
+	static public TextureRegion RIGHT_PLAYER_BACKGROUND;
+	static public TextureRegion RING;
 	
 	static public BitmapFont FONT;
 	
@@ -54,6 +55,20 @@ public class ResourceLoader {
 			TextureRegion[][] tmpClock= TextureRegion.split(clock, 1006, 966);
 			CLOCK[i] = tmpClock[0][0];
 		}
+		
+		FIELD = new TextureRegion[2];
+		
+		Texture fieldLeft = new Texture("gfx/bg_left.png");
+		TextureRegion[][] tmpFieldLeft = TextureRegion.split(fieldLeft, 640, 800);
+		
+		Texture fieldRight = new Texture("gfx/bg_right.png");
+		TextureRegion[][] tmpFieldRight = TextureRegion.split(fieldRight, 640, 800);
+
+		FIELD[0] = tmpFieldLeft[0][0];
+		FIELD[1] = tmpFieldRight[0][0];
+		
+		
+		
 		
 		Texture playerHud = new Texture("gfx/players_hud.png");
 		TextureRegion[][] splitHud = TextureRegion.split(playerHud, 64, 64);
