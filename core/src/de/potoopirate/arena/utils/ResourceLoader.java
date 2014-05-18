@@ -12,6 +12,7 @@ public class ResourceLoader {
 	static public TextureRegion[][] ARCHER;
 	static public TextureRegion[] CLOCK;
 	static public final int CLOCK_IMAGES = 9;
+	static public TextureRegion RING;
 	static public TextureRegion LEFT_PLAYER_BACKGROUND;
 	static public TextureRegion RIGHT_PLAYER_BACKGROUND;
 	static public TextureRegion ICON_MAGE;
@@ -62,11 +63,21 @@ public class ResourceLoader {
 		ICON_IDLE = splitHud[0][3];
 		CURSOR = splitHud[0][4];
 		
-		Texture playerBackgrounds = new Texture("gfx/player_background.png");
-		TextureRegion[][] tmpPlayerBackground = TextureRegion.split(playerBackgrounds, 640, 384);
-		LEFT_PLAYER_BACKGROUND = tmpPlayerBackground[0][0];
-		RIGHT_PLAYER_BACKGROUND = tmpPlayerBackground[1][0];
-	
+		Texture left = new Texture("gfx/wall_left.png");
+		TextureRegion[][] tmpLeft = TextureRegion.split(left, 521, 348);
+		
+		Texture right = new Texture("gfx/wall_right.png");
+		TextureRegion[][] tmpRight = TextureRegion.split(right, 507, 350);
+		
+//		Texture playerBackgrounds = new Texture("gfx/player_background.png");
+//		TextureRegion[][] tmpPlayerBackground = TextureRegion.split(playerBackgrounds, 640, 384);
+		LEFT_PLAYER_BACKGROUND = tmpLeft[0][0];
+		RIGHT_PLAYER_BACKGROUND = tmpRight[0][0];
+		
+		Texture ring = new Texture("gfx/ring.png");
+		TextureRegion[][] tmpRing = TextureRegion.split(ring, 464, 283);
+		RING = tmpRing[0][0];
+		
 		FONT = new BitmapFont();
 	}
 }

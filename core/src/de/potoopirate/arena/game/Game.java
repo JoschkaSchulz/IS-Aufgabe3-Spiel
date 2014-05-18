@@ -84,7 +84,7 @@ public class Game implements Screen,IClockListener{
         
 		//HUD Backgrounds
         mArena.getBatch().draw(ResourceLoader.LEFT_PLAYER_BACKGROUND, 0, 0);
-        mArena.getBatch().draw(ResourceLoader.RIGHT_PLAYER_BACKGROUND, 640, 0);
+        mArena.getBatch().draw(ResourceLoader.RIGHT_PLAYER_BACKGROUND, 773, 0);
         
         //Players Hud
         mPlayersHud.draw(mArena.getBatch());

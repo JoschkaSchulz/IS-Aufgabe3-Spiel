@@ -24,7 +24,7 @@ public class Clock {
 		mGame = game;
 		isPaused = false;
 		mX = (Gdx.graphics.getWidth()/2) - (ResourceLoader.CLOCK[0].getRegionWidth()/8);
-		mY = (Gdx.graphics.getHeight()/2) - (ResourceLoader.CLOCK[0].getRegionHeight()/8) - 100;
+		mY = (Gdx.graphics.getHeight()/2) - (ResourceLoader.CLOCK[0].getRegionHeight()/8) - 192;
 		mStateTime = 0;
 		mPlayer1 = player1;
 		mPlayer2 = player2;
