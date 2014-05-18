@@ -93,6 +93,7 @@ public abstract class Unit {
 		mIdleAnimation = new Animation(0.25f, mIdleFrames);
 		mIdleAnimation.setPlayMode(PlayMode.LOOP);
 		
+		//Fighting Animation
 		mFightFrames = new TextureRegion[4];
 		for (int i = 0; i < ResourceLoader.MOVE_DUMMY[0].length; i++) {
 			mFightFrames[i] = ResourceLoader.MOVE_DUMMY[0][i];
@@ -100,6 +101,8 @@ public abstract class Unit {
 		mFightAnimation = new Animation(0.25f, mFightFrames);
 		mFightAnimation.setPlayMode(PlayMode.NORMAL);
 
+		
+		//Move Animation
 		mMoveFrames = new TextureRegion[4];
 		for (int i = 0; i < ResourceLoader.MOVE_DUMMY[0].length; i++) {
 			mMoveFrames[i] = ResourceLoader.MOVE_DUMMY[0][i];

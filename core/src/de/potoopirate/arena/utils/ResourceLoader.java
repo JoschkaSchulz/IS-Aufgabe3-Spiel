@@ -36,17 +36,22 @@ public class ResourceLoader {
 		KNIGHT = TextureRegion.split(knight, 242, 256);
 		
 		
-		Texture clock = new Texture("gfx/clock.png");
-		TextureRegion[][] tmpClock = TextureRegion.split(clock, 256, 256);
+//		Texture clock = new Texture("gfx/clock.png");
+//		TextureRegion[][] tmpClock = TextureRegion.split(clock, 256, 256);
 		CLOCK = new TextureRegion[CLOCK_IMAGES];
-		int clockCounter = 0;
-		for(int i = 0; i < tmpClock.length; i++) {
-			for(int j = 0; j < tmpClock[0].length; j++) {
-				if(clockCounter < CLOCK_IMAGES) {
-					CLOCK[clockCounter] = tmpClock[i][j];
-					clockCounter++;
-				}
-			}
+//		int clockCounter = 0;
+//		for(int i = 0; i < tmpClock.length; i++) {
+//			for(int j = 0; j < tmpClock[0].length; j++) {
+//				if(clockCounter < CLOCK_IMAGES) {
+//					CLOCK[clockCounter] = tmpClock[i][j];
+//					clockCounter++;
+//				}
+//			}
+//		}
+		for (int i =0; i<9;i++){
+			Texture clock = new Texture("gfx/clock"+i+".png");
+			TextureRegion[][] tmpClock= TextureRegion.split(clock, 1006, 966);
+			CLOCK[i] = tmpClock[0][0];
 		}
 		
 		Texture playerHud = new Texture("gfx/players_hud.png");
