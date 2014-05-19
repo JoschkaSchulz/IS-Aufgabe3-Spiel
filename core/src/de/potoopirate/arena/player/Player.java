@@ -120,9 +120,9 @@ public class Player{
 					if(Gdx.input.isKeyPressed(Keys.A)) {
 						mCursor = CURSOR_MAGE;
 					}else if(Gdx.input.isKeyPressed(Keys.D)){
-						mCursor = CURSOR_ARCHER;
-					}else if(Gdx.input.isKeyPressed(Keys.W)){
 						mCursor = CURSOR_KNIGHT;
+					}else if(Gdx.input.isKeyPressed(Keys.W)){
+						mCursor = CURSOR_ARCHER;
 					}else if(Gdx.input.isKeyPressed(Keys.S)){
 						mCursor = CURSOR_IDLE;
 					}
@@ -131,14 +131,26 @@ public class Player{
 					if(Gdx.input.isKeyPressed(Keys.LEFT)) {
 						mCursor = CURSOR_MAGE;
 					}else if(Gdx.input.isKeyPressed(Keys.RIGHT)){
-						mCursor = CURSOR_ARCHER;
-					}else if(Gdx.input.isKeyPressed(Keys.UP)){
 						mCursor = CURSOR_KNIGHT;
+					}else if(Gdx.input.isKeyPressed(Keys.UP)){
+						mCursor = CURSOR_ARCHER;
 					}else if(Gdx.input.isKeyPressed(Keys.DOWN)){
 						mCursor = CURSOR_IDLE;
 					}
 					break;
 			}
 		}
+	}
+
+	public int getmPlayerNumber() {
+		return mPlayerNumber;
+	}
+
+	public int getmCursor() {
+		return mCursor;
+	}
+
+	public void setmCursor(int mCursor) {
+		this.mCursor = mCursor;
 	}
 }

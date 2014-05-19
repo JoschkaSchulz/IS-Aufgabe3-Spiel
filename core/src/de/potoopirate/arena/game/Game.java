@@ -7,9 +7,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Scaling;
 
 import de.potoopirate.arena.Arena;
 import de.potoopirate.arena.game.Clock.IClockListener;
+import de.potoopirate.arena.player.ComputerKI;
 import de.potoopirate.arena.player.Player;
 import de.potoopirate.arena.player.PlayersHUD;
 import de.potoopirate.arena.utils.ResourceLoader;
@@ -34,7 +36,7 @@ public class Game implements Screen, IClockListener {
 
 	public Game(Arena arena) {
 		mPlayer1 = new Player(Player.PLAYER_1);
-		mPlayer2 = new Player(Player.PLAYER_2);
+		mPlayer2 = new ComputerKI(Player.PLAYER_2, mPlayer1);//new Player(Player.PLAYER_2);
 		mPlayersHud = new PlayersHUD(mPlayer1, mPlayer2);
 
 		mClock = new Clock(this, mPlayer1, mPlayer2);
@@ -135,7 +137,7 @@ public class Game implements Screen, IClockListener {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+		Gdx.gl.glViewport(0, 0, width, height);
 	}
 
 	@Override
