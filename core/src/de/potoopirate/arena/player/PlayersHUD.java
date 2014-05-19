@@ -17,44 +17,46 @@ public class PlayersHUD {
 	
 	public void draw(SpriteBatch batch) {
 		//Player 1
-		batch.draw(ResourceLoader.ICON_KIGHT, 224, 128);
-		batch.draw(ResourceLoader.ICON_MAGE, 96, 32);
-		batch.draw(ResourceLoader.ICON_IDLE, 224, 32);
-		batch.draw(ResourceLoader.ICON_ARCHER, 352, 32);
+//		batch.draw(ResourceLoader.ICON_KIGHT, 224, 128);
+//		batch.draw(ResourceLoader.ICON_MAGE, 96, 32);
+		batch.draw(ResourceLoader.ICON_IDLE, 224-46, 64);
+//		batch.draw(ResourceLoader.ICON_ARCHER, 352, 32);
+		batch.draw(ResourceLoader.CIRCLE, 64, 2);
 		switch(mPlayer1.getCursor()) {
 			case Player.CURSOR_KNIGHT:
-				batch.draw(ResourceLoader.CURSOR, 224, 128);
+				batch.draw(ResourceLoader.CURSOR, 224-46+122, 18);
 				break;
 			case Player.CURSOR_MAGE:
-				batch.draw(ResourceLoader.CURSOR, 96, 32);
+				batch.draw(ResourceLoader.CURSOR, 224-46-112, 20);
 				break;
 			case Player.CURSOR_ARCHER:
-				batch.draw(ResourceLoader.CURSOR, 352, 32);
+				batch.draw(ResourceLoader.CURSOR, 224-46, 15+128);
 				break;
 			default:
 			case Player.CURSOR_IDLE:
-				batch.draw(ResourceLoader.CURSOR, 224, 32);
+				batch.draw(ResourceLoader.CURSOR, 224-46, 64);
 				break;
 		}
 		
 		//Player 2
-		batch.draw(ResourceLoader.ICON_KIGHT, 768+224, 128);
-		batch.draw(ResourceLoader.ICON_MAGE, 768+96, 32);
-		batch.draw(ResourceLoader.ICON_IDLE, 768+224, 32);
-		batch.draw(ResourceLoader.ICON_ARCHER, 768+352, 32);
+//		batch.draw(ResourceLoader.ICON_KIGHT, 768+224, 128);
+//		batch.draw(ResourceLoader.ICON_MAGE, 768+96, 32);
+		batch.draw(ResourceLoader.ICON_IDLE, 800+227, 64);
+//		batch.draw(ResourceLoader.ICON_ARCHER, 768+352, 32);
+		batch.draw(ResourceLoader.CIRCLE, Gdx.graphics.getWidth()-64-ResourceLoader.CIRCLE.getRegionWidth(), 2);
 		switch(mPlayer2.getCursor()) {
 			case Player.CURSOR_KNIGHT:
-				batch.draw(ResourceLoader.CURSOR, 768+224, 128);
+				batch.draw(ResourceLoader.CURSOR, 768+224+157, 18);
 				break;
 			case Player.CURSOR_MAGE:
-				batch.draw(ResourceLoader.CURSOR, 768+96, 32);
+				batch.draw(ResourceLoader.CURSOR, 768+96+51, 20);
 				break;
 			case Player.CURSOR_ARCHER:
-				batch.draw(ResourceLoader.CURSOR, 768+352, 32);
+				batch.draw(ResourceLoader.CURSOR, 800+227, 15+64+64);
 				break;
 			default:
 			case Player.CURSOR_IDLE:
-				batch.draw(ResourceLoader.CURSOR, 768+224, 32);
+				batch.draw(ResourceLoader.CURSOR, 800+227, 64);
 				break;
 		}
 		
