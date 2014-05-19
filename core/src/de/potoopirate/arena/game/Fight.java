@@ -89,8 +89,6 @@ public class Fight implements Unit.IUnitCallback {
 		if(unit2 != null) {
 			unit2.setAnimationState(Unit.STATE_FIGHT, Unit.STATE_MOVE);	
 		}
-		
-		
 	}
 
 	@Override
@@ -110,7 +108,7 @@ public class Fight implements Unit.IUnitCallback {
 		
 		//If both are dead start the clock again
 		if(unit1 == null && unit2 == null) {
-			mGame.clockAction();
+			mGame.startClock();
 		}else{
 			unitStopped(unit, UNITSTATE_FIGHT_END);
 		}

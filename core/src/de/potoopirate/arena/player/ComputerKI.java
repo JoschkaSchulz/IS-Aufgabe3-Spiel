@@ -5,5 +5,7 @@ public class ComputerKI extends Player {
 	public ComputerKI(int playerNumber) {
 		super(playerNumber);
 	}
+	
+	
 
 }

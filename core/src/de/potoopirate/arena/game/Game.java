@@ -48,8 +48,6 @@ public class Game implements Screen,IClockListener{
 	public void act(float delta) {
 		mClock.act(delta);
 		mFight.act(delta);
-		mPlayer1.act(delta);
-		mPlayer2.act(delta);
 		
 		if(mPlayer1.getPoints() == WIN_POINTS && mPlayer2.getPoints() == WIN_POINTS) {
 			mClock.stopClock();
@@ -64,6 +62,9 @@ public class Game implements Screen,IClockListener{
 			System.out.println("PLAYER TWO WON");
 			restartGame();
 		}
+
+		mPlayer1.act(delta);
+		mPlayer2.act(delta);
 	}
 	
 	private void restartGame() {
@@ -120,11 +121,11 @@ public class Game implements Screen,IClockListener{
 		mArena.getBatch().end();
 		
 		//Debug Renderer
-		mDebugRenderer.begin(ShapeType.Line);
-		mDebugRenderer.setColor(1f, 0f, 0f, 1f);
-		mDebugRenderer.rect(POSITION_LEFT_FIGHT.x, POSITION_LEFT_FIGHT.y, 128, 256);
-		mDebugRenderer.rect(POSITION_RIGHT_FIGHT.x, POSITION_RIGHT_FIGHT.y, 128, 256);
-		mDebugRenderer.end();
+//		mDebugRenderer.begin(ShapeType.Line);
+//		mDebugRenderer.setColor(1f, 0f, 0f, 1f);
+//		mDebugRenderer.rect(POSITION_LEFT_FIGHT.x, POSITION_LEFT_FIGHT.y, 128, 256);
+//		mDebugRenderer.rect(POSITION_RIGHT_FIGHT.x, POSITION_RIGHT_FIGHT.y, 128, 256);
+//		mDebugRenderer.end();
 	}
 
 	@Override

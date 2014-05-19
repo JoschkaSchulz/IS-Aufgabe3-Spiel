@@ -39,7 +39,6 @@ public class Player{
 			mQueue = new UnitQueue(800,400);
 			mQueue.setOrientation(UnitQueue.ORIENTATION_RIGHT);
 		}
-		fillDebugQueue(playerNumber);
 	}
 	
 	private void fillDebugQueue(int playerNumber) {
@@ -57,8 +56,6 @@ public class Player{
 	public void restartGame() {
 		mQueue.restartGame();
 		mPoints = mChicken = 0;
-		fillDebugQueue(PLAYER_1);
-		fillDebugQueue(PLAYER_2);
 	}
 	
 	public int getPoints() {

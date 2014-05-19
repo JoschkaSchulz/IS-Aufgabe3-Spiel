@@ -153,6 +153,7 @@ public abstract class Unit {
 		batch.draw(mCurrentFrame, mPosition.x, mPosition.y,
 				mCurrentFrame.getRegionWidth() / 2,
 				mCurrentFrame.getRegionHeight() / 2);
+		ResourceLoader.FONT.setColor(0f, 0f, 0f, 1f);
 		ResourceLoader.FONT.draw(batch, "Leben: " + getHealth(), 
 				mPosition.x + (mCurrentFrame.getRegionWidth()/4 - 30), 
 				mPosition.y + (mCurrentFrame.getRegionHeight()/2)+20);
