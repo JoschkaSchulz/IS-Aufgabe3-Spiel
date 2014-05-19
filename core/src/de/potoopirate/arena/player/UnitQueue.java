@@ -63,6 +63,10 @@ public class UnitQueue implements IUnitCallback{
 		}
 	}
 	
+	public Unit getUnitAtPosition(int position) {
+		return mUnits.get(position);
+	}
+	
 	public void add(Unit unit) {
 		if(mUnits.isEmpty()) {
 			unit.setPosition(mPosition.x, mPosition.y);
