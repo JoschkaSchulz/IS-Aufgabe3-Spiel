@@ -36,7 +36,7 @@ public class Game implements Screen, IClockListener {
 
 	public Game(Arena arena) {
 		mPlayer1 = new Player(Player.PLAYER_1);
-		mPlayer2 = new ComputerKI(Player.PLAYER_2, mPlayer1);//new Player(Player.PLAYER_2);
+		mPlayer2 =new ComputerKI(Player.PLAYER_2, mPlayer1);/*new Player(Player.PLAYER_2);*/
 		mPlayersHud = new PlayersHUD(mPlayer1, mPlayer2);
 
 		mClock = new Clock(this, mPlayer1, mPlayer2);
@@ -104,7 +104,7 @@ public class Game implements Screen, IClockListener {
 		mArena.getBatch().draw(ResourceLoader.FIELD[0], 0, 0);
 		mArena.getBatch().draw(ResourceLoader.FIELD[1],
 				ResourceLoader.FIELD[0].getRegionWidth(), 0);
-		mArena.getBatch().draw(ResourceLoader.RING, 408, 450);
+		mArena.getBatch().draw(ResourceLoader.RING, (Gdx.graphics.getWidth()/2)-(ResourceLoader.RING.getRegionWidth()/2), 450);
 
 		// Draw Player
 		mPlayer1.draw(mArena.getBatch());
