@@ -28,6 +28,10 @@ public class UnitQueue implements IUnitCallback{
 		mOrientation = orientation;
 	}
 	
+	public void restartGame() {
+		mUnits.clear();
+	}
+	
 	public void reorder() {
 		Unit unit;
 		for(int i = 0; i < mUnits.size(); i++) {

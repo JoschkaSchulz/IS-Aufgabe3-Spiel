@@ -50,6 +50,11 @@ public class Clock {
 		mPlayer2.setmChoiseBlocked(false);
 	}
 	
+	public void stopClock() {
+		isPaused = true;
+		mStateTime = 0;
+	}
+	
 	public void draw(SpriteBatch batch) {
 		if(isPaused) {
 			batch.draw(ResourceLoader.CLOCK[0], mX, mY, 

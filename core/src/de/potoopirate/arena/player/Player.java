@@ -35,16 +35,30 @@ public class Player{
 		mChicken = mPoints = 0;
 		if(playerNumber == PLAYER_1) {
 			mQueue = new UnitQueue(350,400);
+		}else{
+			mQueue = new UnitQueue(800,400);
+			mQueue.setOrientation(UnitQueue.ORIENTATION_RIGHT);
+		}
+		fillDebugQueue(playerNumber);
+	}
+	
+	private void fillDebugQueue(int playerNumber) {
+		if(playerNumber == PLAYER_1) {
 			mQueue.add(new Archer(mQueue));
 			mQueue.add(new Mage(mQueue));
 			mQueue.add(new Knight(mQueue));
 		}else{
-			mQueue = new UnitQueue(800,400);
-			mQueue.setOrientation(UnitQueue.ORIENTATION_RIGHT);
 			mQueue.add(new Knight(mQueue));
 			mQueue.add(new Archer(mQueue));
 			mQueue.add(new Mage(mQueue));
 		}
+	}
+	
+	public void restartGame() {
+		mQueue.restartGame();
+		mPoints = mChicken = 0;
+		fillDebugQueue(PLAYER_1);
+		fillDebugQueue(PLAYER_2);
 	}
 	
 	public int getPoints() {

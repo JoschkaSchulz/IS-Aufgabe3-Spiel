@@ -1,9 +1,8 @@
 package de.potoopirate.arena.game;
 
-import sun.font.GlyphLayout.LayoutEngineFactory;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -19,6 +18,7 @@ public class Game implements Screen,IClockListener{
 	
 	public static final Vector2 POSITION_LEFT_FIGHT = new Vector2(507, 540);
 	public static final Vector2 POSITION_RIGHT_FIGHT = new Vector2(645, 540);
+	public static final int WIN_POINTS = 5;
 	
 	private ShapeRenderer mDebugRenderer;
 	
@@ -50,6 +50,28 @@ public class Game implements Screen,IClockListener{
 		mFight.act(delta);
 		mPlayer1.act(delta);
 		mPlayer2.act(delta);
+		
+		if(mPlayer1.getPoints() == WIN_POINTS && mPlayer2.getPoints() == WIN_POINTS) {
+			mClock.stopClock();
+			System.out.println("DRAW");
+			restartGame();
+		}else if(mPlayer1.getPoints() == WIN_POINTS){
+			mClock.stopClock();
+			System.out.println("PLAYER ONE WON");
+			restartGame();
+		}else if(mPlayer2.getPoints() == WIN_POINTS){
+			mClock.stopClock();
+			System.out.println("PLAYER TWO WON");
+			restartGame();
+		}
+	}
+	
+	private void restartGame() {
+		if(Gdx.input.isKeyPressed(Keys.SPACE)) {
+			mPlayer1.restartGame();
+			mPlayer2.restartGame();
+			mClock.resumeClock();
+		}
 	}
 	
 	public void startClock() {
