@@ -13,6 +13,7 @@ public class ResourceLoader {
 	static public TextureRegion[] CLOCK;
 	static public TextureRegion[] FIELD;
 	static public final int CLOCK_IMAGES = 9;
+	static public TextureRegion CIRCLE;
 	static public TextureRegion CURSOR;
 	static public TextureRegion ICON_MAGE;
 	static public TextureRegion ICON_KIGHT;
@@ -62,6 +63,9 @@ public class ResourceLoader {
 		
 		Texture fieldRight = new Texture("gfx/bg_right.png");
 		FIELD[1] = new TextureRegion(fieldRight);
+		
+		Texture circle = new Texture("gfx/win.png");
+		CIRCLE = new TextureRegion(circle);
 		
 		Texture playerHud = new Texture("gfx/players_hud.png");
 		TextureRegion[][] splitHud = TextureRegion.split(playerHud, 64, 64);
