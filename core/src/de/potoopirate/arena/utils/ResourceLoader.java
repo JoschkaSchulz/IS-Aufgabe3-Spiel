@@ -52,20 +52,16 @@ public class ResourceLoader {
 //		}
 		for (int i =0; i<9;i++){
 			Texture clock = new Texture("gfx/clock"+i+".png");
-			TextureRegion[][] tmpClock= TextureRegion.split(clock, 1006, 966);
-			CLOCK[i] = tmpClock[0][0];
+			CLOCK[i] = new TextureRegion(clock);
 		}
 		
 		FIELD = new TextureRegion[2];
 		
 		Texture fieldLeft = new Texture("gfx/bg_left.png");
-		TextureRegion[][] tmpFieldLeft = TextureRegion.split(fieldLeft, 640, 800);
+		FIELD[0] = new TextureRegion(fieldLeft);
 		
 		Texture fieldRight = new Texture("gfx/bg_right.png");
-		TextureRegion[][] tmpFieldRight = TextureRegion.split(fieldRight, 640, 800);
-
-		FIELD[0] = tmpFieldLeft[0][0];
-		FIELD[1] = tmpFieldRight[0][0];
+		FIELD[1] = new TextureRegion(fieldRight);
 		
 		Texture playerHud = new Texture("gfx/players_hud.png");
 		TextureRegion[][] splitHud = TextureRegion.split(playerHud, 64, 64);
@@ -76,19 +72,16 @@ public class ResourceLoader {
 		CURSOR = splitHud[0][4];
 		
 		Texture left = new Texture("gfx/wall_left.png");
-		TextureRegion[][] tmpLeft = TextureRegion.split(left, 521, 348);
+		LEFT_PLAYER_BACKGROUND = new TextureRegion(left);
 		
 		Texture right = new Texture("gfx/wall_right.png");
-		TextureRegion[][] tmpRight = TextureRegion.split(right, 507, 350);
+		RIGHT_PLAYER_BACKGROUND = new TextureRegion(right);
 		
 //		Texture playerBackgrounds = new Texture("gfx/player_background.png");
 //		TextureRegion[][] tmpPlayerBackground = TextureRegion.split(playerBackgrounds, 640, 384);
-		LEFT_PLAYER_BACKGROUND = tmpLeft[0][0];
-		RIGHT_PLAYER_BACKGROUND = tmpRight[0][0];
 		
 		Texture ring = new Texture("gfx/ring.png");
-		TextureRegion[][] tmpRing = TextureRegion.split(ring, 464, 283);
-		RING = tmpRing[0][0];
+		RING = new TextureRegion(ring);
 		
 		FONT = new BitmapFont();
 	}
