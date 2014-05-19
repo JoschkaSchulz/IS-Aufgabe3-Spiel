@@ -61,6 +61,9 @@ public class Fight implements Unit.IUnitCallback {
 					Game.POSITION_RIGHT_FIGHT.y, 0.75f, UNITSTATE_REACHED_FIGHT);
 		} catch (NoUnitException e) {
 		}
+		if(unit1 == null && unit2 ==null){
+			mGame.startClock();
+		}
 		
 	}
 
@@ -86,6 +89,7 @@ public class Fight implements Unit.IUnitCallback {
 		if(unit2 != null) {
 			unit2.setAnimationState(Unit.STATE_FIGHT, Unit.STATE_MOVE);	
 		}
+		
 		
 	}
 

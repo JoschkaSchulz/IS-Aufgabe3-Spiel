@@ -35,10 +35,10 @@ public class Clock {
 			mStateTime += delta;
 			if(mStateTime >= CLOCK_COUNT) {
 				mStateTime = 0;
-				mGame.clockAction();
 				isPaused = true;
 				mPlayer1.setmChoiseBlocked(true);
 				mPlayer2.setmChoiseBlocked(true);
+				mGame.clockAction();
 			}
 		}
 //		if(Gdx.input.isKeyPressed(Keys.SPACE)) resumeClock();
