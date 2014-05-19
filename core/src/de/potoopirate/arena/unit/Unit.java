@@ -14,7 +14,7 @@ public abstract class Unit {
 	public static final int STATE_IDLE = 0;
 	public static final int STATE_MOVE = 1;
 	public static final int STATE_FIGHT = 2;
-	
+
 	protected int mHealth;
 
 	protected float mStateTime;
@@ -34,6 +34,7 @@ public abstract class Unit {
 
 	// Movement
 	protected Vector2 mPosition;
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -92,8 +93,8 @@ public abstract class Unit {
 		}
 		mIdleAnimation = new Animation(0.25f, mIdleFrames);
 		mIdleAnimation.setPlayMode(PlayMode.LOOP);
-		
-		//Fighting Animation
+
+		// Fighting Animation
 		mFightFrames = new TextureRegion[4];
 		for (int i = 0; i < ResourceLoader.MOVE_DUMMY[0].length; i++) {
 			mFightFrames[i] = ResourceLoader.MOVE_DUMMY[0][i];
@@ -101,8 +102,7 @@ public abstract class Unit {
 		mFightAnimation = new Animation(0.25f, mFightFrames);
 		mFightAnimation.setPlayMode(PlayMode.NORMAL);
 
-		
-		//Move Animation
+		// Move Animation
 		mMoveFrames = new TextureRegion[4];
 		for (int i = 0; i < ResourceLoader.MOVE_DUMMY[0].length; i++) {
 			mMoveFrames[i] = ResourceLoader.MOVE_DUMMY[0][i];
@@ -118,12 +118,12 @@ public abstract class Unit {
 		mFollowAnimation = followAnimation;
 		setAnimationState(state);
 	}
-	
+
 	public void setAnimationState(int state) {
 		mAnimationState = state;
 		mStateTime = 0;
 	}
-	
+
 	public void setCallback(IUnitCallback callback) {
 		mUnitCallback = callback;
 	}
@@ -135,7 +135,7 @@ public abstract class Unit {
 	public float getY() {
 		return mPosition.y;
 	}
-	
+
 	public float getX() {
 		return mPosition.x;
 	}
@@ -154,9 +154,28 @@ public abstract class Unit {
 				mCurrentFrame.getRegionWidth() / 2,
 				mCurrentFrame.getRegionHeight() / 2);
 		ResourceLoader.FONT.setColor(0f, 0f, 0f, 1f);
-		ResourceLoader.FONT.draw(batch, "Leben: " + getHealth(), 
-				mPosition.x + (mCurrentFrame.getRegionWidth()/4 - 30), 
-				mPosition.y + (mCurrentFrame.getRegionHeight()/2)+20);
+		for (int i = 1; i <= 3; i++) {
+			if (i <= getHealth()) {
+				batch.draw(ResourceLoader.HEART[0], mPosition.x
+						+ (mCurrentFrame.getRegionWidth() / 4 - 50) + i * 20,
+						mPosition.y + (mCurrentFrame.getRegionHeight() / 2)
+								+ 20,
+						ResourceLoader.HEART[0].getRegionWidth() * 2,
+						ResourceLoader.HEART[0].getRegionWidth() * 2);
+			} else {
+				batch.draw(ResourceLoader.HEART[1], mPosition.x
+						+ (mCurrentFrame.getRegionWidth() / 4 - 50) + i * 20,
+						mPosition.y + (mCurrentFrame.getRegionHeight() / 2)
+								+ 20,
+						ResourceLoader.HEART[0].getRegionWidth() * 2,
+						ResourceLoader.HEART[0].getRegionWidth() * 2);
+
+			}
+		}
+		//
+		// ResourceLoader.FONT.draw(batch, "Leben: " + getHealth(), mPosition.x
+		// + (mCurrentFrame.getRegionWidth() / 4 - 30), mPosition.y
+		// + (mCurrentFrame.getRegionHeight() / 2) + 20);
 		// batch.draw(mCurrentFrame.getTexture(), mPosition.x, mPosition.y,
 		// (float)mCurrentFrame.getRegionWidth(),
 		// (float)mCurrentFrame.getRegionHeight(),
@@ -167,38 +186,37 @@ public abstract class Unit {
 
 	public void act(float deltaTime) {
 		mStateTime += deltaTime;
-		
-		switch(mAnimationState) {
-			default:
-			case STATE_IDLE:
+
+		switch (mAnimationState) {
+		default:
+		case STATE_IDLE:
+			mCurrentFrame = new TextureRegion(
+					mIdleAnimation.getKeyFrame(mStateTime));
+			break;
+		case STATE_MOVE:
+			mCurrentFrame = new TextureRegion(
+					mMoveAnimation.getKeyFrame(mStateTime));
+			break;
+		case STATE_FIGHT:
+			if (mFightAnimation.isAnimationFinished(mStateTime)) {
+				mUnitCallback.unitFinishedFight(this);
+				setAnimationState(mFollowAnimation);
+				mFollowAnimation = STATE_IDLE;
 				mCurrentFrame = new TextureRegion(
 						mIdleAnimation.getKeyFrame(mStateTime));
-				break;
-			case STATE_MOVE:
+			} else {
 				mCurrentFrame = new TextureRegion(
-						mMoveAnimation.getKeyFrame(mStateTime));
-				break;
-			case STATE_FIGHT:
-				if(mFightAnimation.isAnimationFinished(mStateTime)) {
-					mUnitCallback.unitFinishedFight(this);
-					setAnimationState(mFollowAnimation);
-					mFollowAnimation = STATE_IDLE;
-					mCurrentFrame = new TextureRegion(
-						mIdleAnimation.getKeyFrame(mStateTime));
-				}else{
-					mCurrentFrame = new TextureRegion(
 						mFightAnimation.getKeyFrame(mStateTime));
-				}
-				break;
+			}
+			break;
 		}
-		
-		//Flip the unit if it's on the right side
+
+		// Flip the unit if it's on the right side
 		mCurrentFrame.flip(isFliped, false);
 
 		// very simple movement
 		handleMovement(deltaTime);
 	}
-	
 
 	/**
 	 * Handles the movement of the Unit over time
@@ -256,19 +274,20 @@ public abstract class Unit {
 
 	public interface IUnitCallback {
 		public void unitStopped(Unit unit, int state);
+
 		public void unitFinishedFight(Unit unit);
 	}
 
 	public String toString() {
 		return "Unit: " + mPosition.toString();
 	}
-	
+
 	public abstract void attack(Unit unit);
-	
+
 	public int getHealth() {
 		return mHealth;
 	}
-	
+
 	public void setHealth(int health) {
 		mHealth = health;
 	}
