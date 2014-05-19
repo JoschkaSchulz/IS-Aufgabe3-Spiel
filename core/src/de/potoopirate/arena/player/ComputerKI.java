@@ -25,6 +25,9 @@ public class ComputerKI extends Player {
 				case CURSOR_MAGE:
 					setmCursor(CURSOR_KNIGHT);
 					break;
+				case CURSOR_IDLE:
+					setmCursor(CURSOR_IDLE);
+					break;
 			}
 		}
 	}
