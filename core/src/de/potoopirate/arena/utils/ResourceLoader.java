@@ -62,9 +62,6 @@ public class ResourceLoader {
 		
 		Texture fieldRight = new Texture("gfx/bg_right.png");
 		FIELD[1] = new TextureRegion(fieldRight);
-
-				
-		
 		
 		Texture playerHud = new Texture("gfx/players_hud.png");
 		TextureRegion[][] splitHud = TextureRegion.split(playerHud, 64, 64);

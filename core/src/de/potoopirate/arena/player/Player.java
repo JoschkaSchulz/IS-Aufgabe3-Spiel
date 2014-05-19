@@ -24,6 +24,7 @@ public class Player{
 	private boolean mChoiseBlocked;
 	private int mCursor;
 	private int mChicken;
+	private int mPoints;
 	
 	private UnitQueue mQueue;
 	
@@ -31,7 +32,7 @@ public class Player{
 		mPlayerNumber = playerNumber;
 		mCursor = CURSOR_IDLE;
 		mChoiseBlocked = false;
-		mChicken = 0;
+		mChicken = mPoints = 0;
 		if(playerNumber == PLAYER_1) {
 			mQueue = new UnitQueue(350,400);
 			mQueue.add(new Archer(mQueue));
@@ -46,6 +47,14 @@ public class Player{
 		}
 	}
 	
+	public int getPoints() {
+		return mPoints;
+	}
+
+	public void setPoints(int mPoints) {
+		this.mPoints = mPoints;
+	}
+
 	public boolean ismChoiseBlocked() {
 		return mChoiseBlocked;
 	}

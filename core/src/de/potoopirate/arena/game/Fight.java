@@ -98,8 +98,15 @@ public class Fight implements Unit.IUnitCallback {
 		if(unit1 != null) unit1.attack(unit2);
 		if(unit2 != null) unit2.attack(unit1);
 		
-		if(unit1 != null && unit1.getHealth() <= 0) unit1 = null;
-		if(unit2 != null && unit2.getHealth() <= 0) unit2 = null;
+		if(unit1 != null && unit1.getHealth() <= 0) {
+			unit1 = null;
+			mPlayer2.setPoints(mPlayer2.getPoints()+1);
+		}
+		
+		if(unit2 != null && unit2.getHealth() <= 0) {
+			unit2 = null;
+			mPlayer1.setPoints(mPlayer1.getPoints()+1);
+		}
 		
 		//If both are dead start the clock again
 		if(unit1 == null && unit2 == null) {
