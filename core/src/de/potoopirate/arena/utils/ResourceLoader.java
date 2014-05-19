@@ -10,6 +10,7 @@ public class ResourceLoader {
 	static public TextureRegion[][] MAGE;
 	static public TextureRegion[][] KNIGHT;
 	static public TextureRegion[][] ARCHER;
+	static public TextureRegion[] HEART;
 	static public TextureRegion[] CLOCK;
 	static public TextureRegion[] FIELD;
 	static public final int CLOCK_IMAGES = 9;
@@ -86,6 +87,14 @@ public class ResourceLoader {
 		
 		Texture ring = new Texture("gfx/ring.png");
 		RING = new TextureRegion(ring);
+		
+	
+		HEART = new TextureRegion[2];
+
+		Texture heart = new Texture("gfx/heart.png");
+		TextureRegion[][] tmpHeart = TextureRegion.split(heart, 13, 11);
+		HEART[0] = tmpHeart[0][0];
+		HEART[1] = tmpHeart[0][1];
 		
 		FONT = new BitmapFont();
 	}
