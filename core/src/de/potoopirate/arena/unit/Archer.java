@@ -12,28 +12,31 @@ public class Archer extends Unit {
 		super(unitCallback);
 
 		mIdleFrames = new TextureRegion[2];
-		 for(int i = 0; i < 2; i++) {
-		 mIdleFrames[i] = ResourceLoader.ARCHER[0][i];
-		 }
-		
+		for (int i = 0; i < 2; i++) {
+			mIdleFrames[i] = ResourceLoader.ARCHER[0][i];
+		}
 
 		mIdleAnimation = new Animation(0.25f, mIdleFrames);
 		mIdleAnimation.setPlayMode(PlayMode.LOOP);
 
 		mFightFrames = new TextureRegion[6];
 		int k = 2;
-		mFightFrames[0]= ResourceLoader.ARCHER[0][0];
-		for (int i = 1; i < 6; i++) {
-				mFightFrames[i] = ResourceLoader.ARCHER[(i+1)/4][k++%4];
-			
+		for (int i = 0; i < 6; i++) {
+			if (i == 5) {
+				mFightFrames[i] = ResourceLoader.ARCHER[0][0];
+			} else if (i > 5) {
+				mFightFrames[i] = ResourceLoader.ARCHER[(i) / 4][k++ % 4];
+			} else {
+				mFightFrames[i] = ResourceLoader.ARCHER[(i + 1) / 4][k++ % 4];
+			}
 		}
 
 		mFightAnimation = new Animation(0.25f, mFightFrames);
 		mFightAnimation.setPlayMode(PlayMode.NORMAL);
-		
+
 		mMoveFrames = new TextureRegion[4];
-		System.out.println("mage2: "+ ResourceLoader.ARCHER[2].length);
-		
+		System.out.println("mage2: " + ResourceLoader.ARCHER[2].length);
+
 		for (int i = 0; i < ResourceLoader.ARCHER[2].length; i++) {
 			mMoveFrames[i] = ResourceLoader.ARCHER[2][i];
 		}
@@ -44,10 +47,10 @@ public class Archer extends Unit {
 
 	@Override
 	public void attack(Unit unit) {
-		if(unit instanceof Mage) {
-			unit.setHealth(unit.getHealth()-1);
-		}else if(unit instanceof Knight) {
-			unit.setHealth(unit.getHealth()-2);
+		if (unit instanceof Mage) {
+			unit.setHealth(unit.getHealth() - 1);
+		} else if (unit instanceof Knight) {
+			unit.setHealth(unit.getHealth() - 2);
 		}
 	}
 
