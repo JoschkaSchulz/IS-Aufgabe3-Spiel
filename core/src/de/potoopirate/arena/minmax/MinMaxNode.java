@@ -14,16 +14,19 @@ public class MinMaxNode {
 	private int mPointsPlayer;
 	private int mPointsComputer;
 	
-	public MinMaxNode(int choose, boolean isPlayerTurn) {
-		mPlayerQueue = "";
-		mComputerQueue = "";
+	public MinMaxNode(int choose, boolean isPlayerTurn, String playerQueue, String computerQueue) {
+		mPlayerQueue = playerQueue;
+		mComputerQueue = computerQueue;
 		mChoose = choose;
 		mNodes = new ArrayList<MinMaxNode>();
 		mPointsPlayer = 0;
 		mPointsComputer = 0;
 		
 		this.isPlayerTurn = isPlayerTurn;
-		if(this.isPlayerTurn) fight();
+		if(this.isPlayerTurn) {
+			fight();
+			System.out.println("Kampf: " + toString());
+		}
 	}
 	
 	private void fight() {
@@ -136,5 +139,10 @@ public class MinMaxNode {
 		}
 		
 		
+	}
+	
+	@Override
+	public String toString() {
+		return mPlayerQueue + "/" + mComputerQueue;
 	}
 }

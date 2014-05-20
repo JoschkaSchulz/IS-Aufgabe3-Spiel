@@ -18,7 +18,7 @@ public class TreeFactory {
 	}
 	
 	public static MinMaxNode buildTree(int level) {
-		MinMaxNode root = new MinMaxNode(-1, false);
+		MinMaxNode root = new MinMaxNode(-1, false, "", "");
 		return buildTree(level, root);
 	}
 }
