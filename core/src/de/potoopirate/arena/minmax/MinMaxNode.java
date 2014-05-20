@@ -13,134 +13,135 @@ public class MinMaxNode {
 	private ArrayList<MinMaxNode> mNodes;
 	private int mPointsPlayer;
 	private int mPointsComputer;
-	
-	public MinMaxNode(int choose, boolean isPlayerTurn, String playerQueue, String computerQueue) {
+
+	public MinMaxNode(int choose, boolean isPlayerTurn, String playerQueue,
+			String computerQueue) {
 		mPlayerQueue = playerQueue;
 		mComputerQueue = computerQueue;
 		mChoose = choose;
 		mNodes = new ArrayList<MinMaxNode>();
 		mPointsPlayer = 0;
 		mPointsComputer = 0;
-		
+
 		this.isPlayerTurn = isPlayerTurn;
-		if(this.isPlayerTurn) {
+		if (this.isPlayerTurn) {
 			fight();
 			System.out.println("Kampf: " + toString());
 		}
 	}
-	
+
 	private void fight() {
 		char pUnit = ' ';
 		int pLife = 0;
 		String[] playerUnits;
-		
+
 		char cUnit = ' ';
 		int cLife = 0;
 		String[] computerUnits;
-		
-		if(!mPlayerQueue.isEmpty()) {
+
+		if (!mPlayerQueue.isEmpty()) {
 			playerUnits = mPlayerQueue.split(",");
-			pUnit = playerUnits[0].charAt(0);	
+			pUnit = playerUnits[0].charAt(0);
 			pLife = Integer.parseInt(playerUnits[0].substring(1, 2));
-		}else{
+		} else {
 			playerUnits = new String[0];
 		}
-		
-		if(!mComputerQueue.isEmpty()) {
+
+		if (!mComputerQueue.isEmpty()) {
 			computerUnits = mComputerQueue.split(",");
-			cUnit = computerUnits[0].charAt(0);	
+			cUnit = computerUnits[0].charAt(0);
 			cLife = Integer.parseInt(computerUnits[0].substring(1, 2));
-		}else{
+		} else {
 			computerUnits = new String[0];
 		}
-		
-		switch(pUnit) {
-			case 'M':
-				switch(cUnit) {
-					case 'A':
-						pLife -= 1;
-						cLife -= 2;
-						break;
-					case 'K':
-						pLife -= 2;
-						cLife -= 1;
-						break;
-					case ' ':
-					default:
-						break;
-				}
-				break;
+
+		switch (pUnit) {
+		case 'M':
+			switch (cUnit) {
 			case 'A':
-				switch(cUnit) {
-					case 'M':
-						pLife -= 2;
-						cLife -= 1;
-						break;
-					case 'K':
-						pLife -= 1;
-						cLife -= 2;
-						break;
-					case ' ':
-					default:
-						break;
-				}
+				pLife -= 1;
+				cLife -= 2;
 				break;
 			case 'K':
-				switch(cUnit) {
-					case 'M':
-						pLife -= 1;
-						cLife -= 2;
-						break;
-					case 'A':
-						pLife -= 2;
-						cLife -= 1;
-						break;
-					case ' ':
-					default:
-						break;
-				}
+				pLife -= 2;
+				cLife -= 1;
 				break;
 			case ' ':
 			default:
 				break;
+			}
+			break;
+		case 'A':
+			switch (cUnit) {
+			case 'M':
+				pLife -= 2;
+				cLife -= 1;
+				break;
+			case 'K':
+				pLife -= 1;
+				cLife -= 2;
+				break;
+			case ' ':
+			default:
+				break;
+			}
+			break;
+		case 'K':
+			switch (cUnit) {
+			case 'M':
+				pLife -= 1;
+				cLife -= 2;
+				break;
+			case 'A':
+				pLife -= 2;
+				cLife -= 1;
+				break;
+			case ' ':
+			default:
+				break;
+			}
+			break;
+		case ' ':
+		default:
+			break;
 		}
-		
+
 		mPlayerQueue = "";
-		for(int i = 0; i < playerUnits.length; i++) {
-			if(i > 0) {
+		for (int i = 0; i < playerUnits.length; i++) {
+			if (i > 0) {
 				mPlayerQueue += playerUnits[i];
-			}
-			if(i < playerUnits.length+1) {
-				mPlayerQueue += ",";
+				if (i + 1 < playerUnits.length) {
+					mPlayerQueue += ",";
+				}
 			}
 		}
-		
-		if(pLife > 0) {
-			mPlayerQueue += ",", String.valueOf(pUnit) + pLife;
-		}else{
+
+		if (pLife > 0) {
+			mPlayerQueue += "," + String.valueOf(pUnit) + pLife;
+		} else {
 			mPointsComputer += 10;
 		}
-		
+
 		mComputerQueue = "";
-		for(int i = 0; i < computerUnits.length; i++) {
-			if(i > 0) {
-				mComputerQueue += playerUnits[i];
-			}
-			if(i < computerUnits.length+1) {
-				mComputerQueue += ",";
+		for (int i = 0; i < computerUnits.length; i++) {
+			if (i > 0) {
+				mComputerQueue += computerUnits[i];
+				if (i + 1 < computerUnits.length) {
+					mComputerQueue += ",";
+				}
 			}
 		}
-		
-		if(pLife > 0) {
-			mComputerQueue += "," + String.valueOf(pUnit) + pLife;
-		}else{
+
+		if (cLife > 0) {
+			mComputerQueue += "," + String.valueOf(cUnit) + cLife;
+		} else {
 			mPointsPlayer += 10;
-			if(mPointsPlayer >= 50) mPointsComputer -= Integer.MAX_VALUE;
+			if (mPointsPlayer >= 50)
+				mPointsComputer -= Integer.MAX_VALUE;
 		}
-		
-		
+
 	}
-	
+
 	@Override
 	public String toString() {
 		return mPlayerQueue + "/" + mComputerQueue;
