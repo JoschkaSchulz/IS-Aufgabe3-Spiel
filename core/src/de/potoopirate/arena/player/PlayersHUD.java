@@ -60,7 +60,9 @@ public class PlayersHUD {
 				break;
 		}
 		
+		
 		ResourceLoader.FONT.draw(batch, "Punkte: " + mPlayer1.getPoints(), 10, 196);
 		ResourceLoader.FONT.draw(batch, "Punkte: " + mPlayer2.getPoints(), Gdx.graphics.getWidth()-100, 196);
+		
 	}
 }

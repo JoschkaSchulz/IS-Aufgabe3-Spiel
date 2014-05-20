@@ -35,11 +35,11 @@ public class Player{
 		mChicken = mPoints = 0;
 		if(playerNumber == PLAYER_1) {
 			mQueue = new UnitQueue(350,400);
-			fillDebugQueue(playerNumber);
+			//fillDebugQueue(playerNumber);
 		}else{
 			mQueue = new UnitQueue(800,400);
 			mQueue.setOrientation(UnitQueue.ORIENTATION_RIGHT);
-			fillDebugQueue(playerNumber);
+			//fillDebugQueue(playerNumber);
 		}
 	}
 	

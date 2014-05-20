@@ -154,7 +154,7 @@ public abstract class Unit {
 				mCurrentFrame.getRegionWidth() / 2,
 				mCurrentFrame.getRegionHeight() / 2);
 		ResourceLoader.FONT.setColor(0f, 0f, 0f, 1f);
-		for (int i = 1; i <= 3; i++) {
+		for (int i = 3; i > 0; i--) {
 			if (i <= getHealth()) {
 				batch.draw(ResourceLoader.HEART[0], mPosition.x
 						+ (mCurrentFrame.getRegionWidth() / 4 - 50) + i * 20,

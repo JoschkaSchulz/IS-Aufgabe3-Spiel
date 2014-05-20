@@ -47,6 +47,7 @@ public class Game implements Screen, IClockListener {
 		mDebugRenderer = new ShapeRenderer();
 
 		mArena = arena;
+		ResourceLoader.FONT.setColor(0, 0, 0, 1f);
 	}
 
 	public void act(float delta) {
