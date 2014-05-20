@@ -1,13 +1,19 @@
 package de.potoopirate.arena.player;
 
+import de.potoopirate.arena.minmax.MinMaxNode;
+import de.potoopirate.arena.minmax.TreeFactory;
+
 
 public class ComputerKI extends Player {
 
 	private Player mPlayer;
+	private MinMaxNode mTree;
+	private MinMaxNode mCurrentNode;
 	
 	public ComputerKI(int playerNumber, Player other) {
 		super(playerNumber);
 		mPlayer = other;
+		mTree = TreeFactory.buildTree(1);
 	}
 
 	@Override
