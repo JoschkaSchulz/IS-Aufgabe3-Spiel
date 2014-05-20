@@ -6,6 +6,9 @@ import java.util.List;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import de.potoopirate.arena.unit.Archer;
+import de.potoopirate.arena.unit.Knight;
+import de.potoopirate.arena.unit.Mage;
 import de.potoopirate.arena.unit.Unit;
 import de.potoopirate.arena.unit.Unit.IUnitCallback;
 
@@ -138,5 +141,20 @@ public class UnitQueue implements IUnitCallback{
 	@Override
 	public void unitFinishedFight(Unit unit) {
 		
+	}
+	
+	@Override
+	public String toString() {
+		String result = "";
+		for(Unit u : mUnits) {
+			if(u instanceof Mage) {
+				result += "M"+u.getHealth();
+			}else if(u instanceof Knight) {
+				result += "K"+u.getHealth();
+			}else if(u instanceof Archer) {
+				result += "A"+u.getHealth();
+			}
+		}
+		return result;
 	}
 }

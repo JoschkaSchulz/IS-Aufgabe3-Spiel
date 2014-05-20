@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Scaling;
 import de.potoopirate.arena.Arena;
 import de.potoopirate.arena.game.Clock.IClockListener;
 import de.potoopirate.arena.minmax.MinMaxNode;
-import de.potoopirate.arena.minmax.NodeFactory;
+import de.potoopirate.arena.minmax.TreeFactory;
 import de.potoopirate.arena.player.ComputerKI;
 import de.potoopirate.arena.player.Player;
 import de.potoopirate.arena.player.PlayersHUD;
@@ -39,9 +39,6 @@ public class Game implements Screen, IClockListener {
 	public Game(Arena arena) {
 		mPlayer1 = new Player(Player.PLAYER_1);
 		mPlayer2 = /*new ComputerKI(Player.PLAYER_2, mPlayer1);*/new Player(Player.PLAYER_2);
-		NodeFactory.generateNode(mPlayer2.getQueue(), Player.CURSOR_ARCHER, mPlayer1.getQueue());
-		NodeFactory.generateNode(mPlayer2.getQueue(), Player.CURSOR_KNIGHT, mPlayer1.getQueue());
-		NodeFactory.generateNode(mPlayer2.getQueue(), Player.CURSOR_MAGE, mPlayer1.getQueue());
 		mPlayersHud = new PlayersHUD(mPlayer1, mPlayer2);
 
 		mClock = new Clock(this, mPlayer1, mPlayer2);
