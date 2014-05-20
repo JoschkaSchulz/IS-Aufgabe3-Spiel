@@ -1,6 +1,7 @@
 package de.potoopirate.arena.player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -19,9 +20,22 @@ public class UnitQueue implements IUnitCallback{
 	private Vector2 mPosition;
 	private int mOrientation;
 	
+	/**
+	 * creates a UnitQueue from another unitQueue
+	 * @param unitQueue the UnitQueue  where the new one should be created from
+	 */
+	public UnitQueue(UnitQueue unitQueue) {
+		mPosition = new Vector2(unitQueue.getX(), unitQueue.getY());
+		mUnits = new ArrayList<Unit>(unitQueue.getUnits());
+	}
+	
 	public UnitQueue(int x, int y) {
 		mUnits = new ArrayList<Unit>();
 		mPosition = new Vector2(x, y);
+	}
+	
+	private ArrayList<Unit> getUnits() {
+		return mUnits;
 	}
 	
 	public void setOrientation(int orientation) {
@@ -86,6 +100,10 @@ public class UnitQueue implements IUnitCallback{
 	
 	public float getY() {
 		return mPosition.y;
+	}
+	
+	public float getX() {
+		return mPosition.x;
 	}
 	
 	public float getLastPositionX() {
