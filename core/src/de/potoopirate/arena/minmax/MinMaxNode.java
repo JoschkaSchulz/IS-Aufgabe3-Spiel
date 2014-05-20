@@ -20,8 +20,6 @@ public class MinMaxNode {
 	public MinMaxNode(int choose, boolean isPlayerTurn, String playerQueue,
 			String computerQueue) {
 
-		System.out.println("A-Memory: " + Gdx.app.getNativeHeap());
-		
 		mPlayerQueue = playerQueue;
 		mComputerQueue = computerQueue;
 		mChoose = choose;
@@ -35,10 +33,6 @@ public class MinMaxNode {
 			System.out.println(":D");
 		}
 		addChooseUnit();
-
-		System.out.println("B-Memory: " + Gdx.app.getNativeHeap());
-		
-//		System.out.println("MinMaxNode: " + toString());
 	}
 	
 	public ArrayList<MinMaxNode> getLeafes() {
