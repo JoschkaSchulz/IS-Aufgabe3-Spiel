@@ -1,11 +1,12 @@
 package de.potoopirate.arena.minmax;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import de.potoopirate.arena.unit.Unit;
+import de.potoopirate.arena.player.Player;
 
 public class MinMaxNode {
+	private static final int POINTS = 50;
+	
 	private String mPlayerQueue;
 	private String mComputerQueue;
 	private int mChoose;
@@ -27,6 +28,57 @@ public class MinMaxNode {
 		if (this.isPlayerTurn) {
 			fight();
 			System.out.println("Kampf: " + toString());
+		}
+		addChooseUnit();
+	}
+	
+	public String getPlayerQueue() {
+		return mPlayerQueue;
+	}
+	
+	public String getComputerQueue() {
+		return mComputerQueue;
+	}
+	
+	public void addNode(MinMaxNode node) {
+		node.mPointsComputer = mPointsComputer;
+		node.mPointsPlayer = mPointsPlayer;
+		mNodes.add(node);
+	}
+	
+	private void addChooseUnit() {
+		if(isPlayerTurn) {
+			if(!mPlayerQueue.isEmpty() && mChoose != Player.CURSOR_IDLE) {
+				mPlayerQueue += ",";
+			}
+			
+			switch(mChoose) {
+				case Player.CURSOR_ARCHER:
+					mPlayerQueue += "A3";
+					break;
+				case Player.CURSOR_KNIGHT:
+					mPlayerQueue += "K3";
+					break;
+				case Player.CURSOR_MAGE:
+					mPlayerQueue += "M3";
+					break;
+			}
+		}else{
+			if(!mComputerQueue.isEmpty() && mChoose != Player.CURSOR_IDLE) {
+				mComputerQueue += ",";
+			}
+			
+			switch(mChoose) {
+				case Player.CURSOR_ARCHER:
+					mComputerQueue += "A3";
+					break;
+				case Player.CURSOR_KNIGHT:
+					mComputerQueue += "K3";
+					break;
+				case Player.CURSOR_MAGE:
+					mComputerQueue += "M3";
+					break;
+			}
 		}
 	}
 
@@ -117,9 +169,12 @@ public class MinMaxNode {
 		}
 
 		if (pLife > 0) {
-			mPlayerQueue += "," + String.valueOf(pUnit) + pLife;
+			mPlayerQueue += (playerUnits.length>1?",":"") + String.valueOf(pUnit) + pLife;
 		} else {
 			mPointsComputer += 10;
+			if(mPointsComputer >= POINTS) {
+				mPointsComputer = Integer.MAX_VALUE;
+			}
 		}
 
 		mComputerQueue = "";
@@ -133,11 +188,11 @@ public class MinMaxNode {
 		}
 
 		if (cLife > 0) {
-			mComputerQueue += "," + String.valueOf(cUnit) + cLife;
+			mComputerQueue += (computerUnits.length>1?",":"") + String.valueOf(cUnit) + cLife;
 		} else {
 			mPointsPlayer += 10;
-			if (mPointsPlayer >= 50)
-				mPointsComputer -= Integer.MAX_VALUE;
+			if (mPointsPlayer >= POINTS)
+				mPointsComputer = Integer.MIN_VALUE;
 		}
 
 	}
