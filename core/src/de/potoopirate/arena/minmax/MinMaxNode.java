@@ -110,13 +110,13 @@ public class MinMaxNode {
 			if(i > 0) {
 				mPlayerQueue += playerUnits[i];
 			}
-			if(i < playerUnits.length-1) {
+			if(i < playerUnits.length+1) {
 				mPlayerQueue += ",";
 			}
 		}
 		
 		if(pLife > 0) {
-			mPlayerQueue += String.valueOf(pUnit) + pLife;
+			mPlayerQueue += ",", String.valueOf(pUnit) + pLife;
 		}else{
 			mPointsComputer += 10;
 		}
@@ -126,13 +126,13 @@ public class MinMaxNode {
 			if(i > 0) {
 				mComputerQueue += playerUnits[i];
 			}
-			if(i < computerUnits.length-1) {
+			if(i < computerUnits.length+1) {
 				mComputerQueue += ",";
 			}
 		}
 		
 		if(pLife > 0) {
-			mComputerQueue += String.valueOf(pUnit) + pLife;
+			mComputerQueue += "," + String.valueOf(pUnit) + pLife;
 		}else{
 			mPointsPlayer += 10;
 			if(mPointsPlayer >= 50) mPointsComputer -= Integer.MAX_VALUE;
