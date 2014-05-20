@@ -38,9 +38,12 @@ public class Game implements Screen, IClockListener {
 
 	public Game(Arena arena) {
 		mPlayer1 = new Player(Player.PLAYER_1);
-		mPlayer2 = /*new ComputerKI(Player.PLAYER_2, mPlayer1);*/new Player(Player.PLAYER_2);
+		mPlayer2 = new ComputerKI(Player.PLAYER_2, mPlayer1);/*new Player(Player.PLAYER_2);*/
 		
+<<<<<<< HEAD
 		new MinMaxNode(Player.CURSOR_KNIGHT, true, "M3", "M3,A1");
+=======
+>>>>>>> 8768ae559f1ee2f1236953300bfce5451a29e108
 		mPlayersHud = new PlayersHUD(mPlayer1, mPlayer2);
 
 		mClock = new Clock(this, mPlayer1, mPlayer2);

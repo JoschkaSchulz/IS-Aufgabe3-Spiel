@@ -2,6 +2,8 @@ package de.potoopirate.arena.minmax;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
+
 import de.potoopirate.arena.player.Player;
 
 public class MinMaxNode {
@@ -17,6 +19,9 @@ public class MinMaxNode {
 
 	public MinMaxNode(int choose, boolean isPlayerTurn, String playerQueue,
 			String computerQueue) {
+
+		System.out.println("A-Memory: " + Gdx.app.getNativeHeap());
+		
 		mPlayerQueue = playerQueue;
 		mComputerQueue = computerQueue;
 		mChoose = choose;
@@ -27,10 +32,28 @@ public class MinMaxNode {
 		this.isPlayerTurn = isPlayerTurn;
 		if (this.isPlayerTurn) {
 			fight();
+			System.out.println(":D");
 		}
 		addChooseUnit();
 
-		System.out.println("MinMaxNode: " + toString());
+		System.out.println("B-Memory: " + Gdx.app.getNativeHeap());
+		
+//		System.out.println("MinMaxNode: " + toString());
+	}
+	
+	public ArrayList<MinMaxNode> getLeafes() {
+		ArrayList<MinMaxNode> result = new ArrayList<MinMaxNode>();
+		
+		if(mNodes.isEmpty()) {
+			result.add(this);
+			return result;
+		}
+		
+		for(MinMaxNode node : mNodes) {
+			result.addAll(node.getLeafes());
+		}
+		
+		return result;
 	}
 	
 	public String getPlayerQueue() {
@@ -45,6 +68,10 @@ public class MinMaxNode {
 		node.mPointsComputer = mPointsComputer;
 		node.mPointsPlayer = mPointsPlayer;
 		mNodes.add(node);
+	}
+	
+	public boolean isPlayerTurn() {
+		return isPlayerTurn;
 	}
 	
 	private void addChooseUnit() {
@@ -200,6 +227,6 @@ public class MinMaxNode {
 
 	@Override
 	public String toString() {
-		return mPlayerQueue + "/" + mComputerQueue;
+		return "[Node"+(isPlayerTurn?"(P)":"(C)")+":" + mPlayerQueue + "/" + mComputerQueue + "]";
 	}
 }
