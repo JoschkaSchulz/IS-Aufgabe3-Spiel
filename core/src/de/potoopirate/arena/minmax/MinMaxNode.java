@@ -27,9 +27,10 @@ public class MinMaxNode {
 		this.isPlayerTurn = isPlayerTurn;
 		if (this.isPlayerTurn) {
 			fight();
-			System.out.println("Kampf: " + toString());
 		}
 		addChooseUnit();
+
+		System.out.println("MinMaxNode: " + toString());
 	}
 	
 	public String getPlayerQueue() {
