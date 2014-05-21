@@ -30,9 +30,52 @@ public class MinMaxNode {
 		this.isPlayerTurn = isPlayerTurn;
 		if (this.isPlayerTurn) {
 			fight();
-			System.out.println(":D");
 		}
 		addChooseUnit();
+	}
+	
+	public MinMaxNode getNode() {
+		return mNodes.get(0);
+	}
+
+	public int getChoose() {
+		return mChoose;
+	}
+	
+	public int getPointsComputer() {
+		return mPointsComputer;
+	}
+	
+	public MinMaxNode getBest() {
+		MinMaxNode result = mNodes.get(0);
+		for(MinMaxNode node : mNodes) {
+			if(result.getPointsComputer() < node.getPointsComputer()) {
+				result = node;
+			}
+		}
+		System.out.println(result.getDeep() + " && " + result.getChoose());
+		return result;
+	}
+	
+	public MinMaxNode getNext(int choose) {
+		for(MinMaxNode node : mNodes) {
+			if(node.getChoose() == choose) return node;
+		}
+		return null;
+	}
+	
+	public int getDeep() {
+		return getDeep(1);
+	}
+	
+	private int getDeep(int deep) {
+		if(mNodes.isEmpty()) {
+			return 1;
+		}else{
+			deep += mNodes.get(0).getDeep(deep);	
+		}
+		
+		return deep;
 	}
 	
 	public ArrayList<MinMaxNode> getLeafes() {
@@ -133,10 +176,14 @@ public class MinMaxNode {
 		case 'M':
 			switch (cUnit) {
 			case 'A':
+				mPointsPlayer += 1;
+				mPointsComputer -= 1;
 				pLife -= 1;
 				cLife -= 2;
 				break;
 			case 'K':
+				mPointsPlayer -= 1;
+				mPointsComputer += 1;
 				pLife -= 2;
 				cLife -= 1;
 				break;
@@ -148,10 +195,14 @@ public class MinMaxNode {
 		case 'A':
 			switch (cUnit) {
 			case 'M':
+				mPointsPlayer -= 1;
+				mPointsComputer += 1;
 				pLife -= 2;
 				cLife -= 1;
 				break;
 			case 'K':
+				mPointsPlayer += 1;
+				mPointsComputer -= 1;
 				pLife -= 1;
 				cLife -= 2;
 				break;
@@ -163,10 +214,14 @@ public class MinMaxNode {
 		case 'K':
 			switch (cUnit) {
 			case 'M':
+				mPointsPlayer += 1;
+				mPointsComputer -= 1;
 				pLife -= 1;
 				cLife -= 2;
 				break;
 			case 'A':
+				mPointsPlayer -= 1;
+				mPointsComputer += 1;
 				pLife -= 2;
 				cLife -= 1;
 				break;

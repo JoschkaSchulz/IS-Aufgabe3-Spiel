@@ -7,9 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.potoopirate.arena.unit.Archer;
 import de.potoopirate.arena.unit.Knight;
 import de.potoopirate.arena.unit.Mage;
-import de.potoopirate.arena.unit.Unit;
-import de.potoopirate.arena.unit.Unit.IUnitCallback;
-import de.potoopirate.arena.utils.ResourceLoader;
 
 public class Player{
 	public static final int CURSOR_IDLE 	= 0;
