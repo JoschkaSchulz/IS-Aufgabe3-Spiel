@@ -1,5 +1,6 @@
 package de.potoopirate.arena;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.potoopirate.arena.game.Game;
@@ -22,8 +23,14 @@ public class Arena extends com.badlogic.gdx.Game {
         
         this.setScreen(mGame);
     }
+    
+//    @Override
+//	public void resize(int width, int height) {
+////		super.resize(width, height);
+//		Gdx.graphics.setDisplayMode(width, height, false);
+//    }
 
-    public void render() {
+	public void render() {
         super.render(); //important!
     }
 
