@@ -34,9 +34,7 @@ public class MinMaxNode {
 		addChooseUnit();
 	}
 	
-	public MinMaxNode getNode() {
-		return mNodes.get(0);
-	}
+
 
 	public int getChoose() {
 		return mChoose;
