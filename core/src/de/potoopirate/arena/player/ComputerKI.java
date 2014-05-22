@@ -42,8 +42,14 @@ public class ComputerKI extends Player {
 	public void clockAction() {
 //		System.out.println("auswahl => " + mPlayer.getLastCursor());
 //		if(mPlayer.getLastCursor() != CURSOR_IDLE) {
+			System.out.println("~~~");
 			mCurrentNode = mCurrentNode.getNext(mPlayer.getLastCursor());
 			System.out.println("Spieler: " + mCurrentNode.toString());
+
+			System.out.println("auswahlen: " + mCurrentNode.getNext(CURSOR_ARCHER));
+			System.out.println("auswahlen: " + mCurrentNode.getNext(CURSOR_KNIGHT));
+			System.out.println("auswahlen: " + mCurrentNode.getNext(CURSOR_MAGE));
+			System.out.println("auswahlen: " + mCurrentNode.getNext(CURSOR_IDLE));
 			mCurrentNode = mCurrentNode.getBest();
 			System.out.println("Computer: " + mCurrentNode.toString());
 //		}else{
