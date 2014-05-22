@@ -102,10 +102,13 @@ public class MinMaxNode {
 	}
 
 	public void addNode(MinMaxNode node) {
-		node.mPointsComputer = queueFight(mPlayerQueue.split(","),
-				mComputerQueue.split(","));
-		node.mPointsPlayer = queueFight(mComputerQueue.split(","),
-				mPlayerQueue.split(","));
+//		node.mPointsComputer = queueFight(mPlayerQueue.split(","),
+//				mComputerQueue.split(","));
+//		node.mPointsPlayer = queueFight(mComputerQueue.split(","),
+//				mPlayerQueue.split(","));
+		
+		node.mPointsComputer = mPointsComputer;
+		node.mPointsPlayer = mPointsPlayer;
 		if (!node.isPlayerTurn) {
 			node.fight();
 		}
