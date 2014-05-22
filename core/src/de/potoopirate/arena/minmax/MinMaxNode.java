@@ -143,7 +143,7 @@ public class MinMaxNode {
 			}
 		}
 	}
-
+	
 	private void fight() {
 		char pUnit = ' ';
 		int pLife = 0;
@@ -244,7 +244,7 @@ public class MinMaxNode {
 
 		if (pLife > 0) {
 			mPlayerQueue += (playerUnits.length>1?",":"") + String.valueOf(pUnit) + pLife;
-		} else {
+		} else if(pLife <= 0 && mPlayerQueue.length() > 0){
 			mPointsComputer += 10;
 			if(mPointsComputer >= POINTS) {
 				mPointsComputer = Integer.MAX_VALUE;
@@ -263,9 +263,9 @@ public class MinMaxNode {
 
 		if (cLife > 0) {
 			mComputerQueue += (computerUnits.length>1?",":"") + String.valueOf(cUnit) + cLife;
-		} else {
-			mPointsPlayer += 10;
-			if (mPointsPlayer >= POINTS)
+		} else if(cLife <= 0 && mComputerQueue.length() > 0){
+			mPointsComputer += 10;
+			if (mPointsComputer >= POINTS)
 				mPointsComputer = Integer.MIN_VALUE;
 		}
 
