@@ -2,6 +2,10 @@ package de.potoopirate.arena.minmax;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> 725303eea0d87b9f059d115dee8b15dded740557
 
 import com.badlogic.gdx.Gdx;
 
@@ -153,7 +157,18 @@ public class MinMaxNode {
 
 	private int queueFight(String[] playerQ, String[] computerQ) {
 		int points = 0;
+<<<<<<< HEAD
 		System.out.println("player "+ playerQ.length +Arrays.toString(playerQ) + " computer "+ computerQ.length +Arrays.toString(computerQ));
+=======
+		
+		List<String> playerL = new ArrayList<String>(Arrays.asList(playerQ));
+		playerL.removeAll(Arrays.asList("", null));
+		
+		List<String> computerL = new ArrayList<String>(Arrays.asList(playerQ));
+		computerL.removeAll(Arrays.asList("", null));
+		
+		System.out.println("player "+ playerQ.length + " computer "+ computerQ.length);
+>>>>>>> 725303eea0d87b9f059d115dee8b15dded740557
 		if (playerQ.length > computerQ.length) {
 			for (int i = 0; i < playerQ.length; i++) {
 				points += unitValue(playerQ[i].substring(0, 1), computerQ[i
