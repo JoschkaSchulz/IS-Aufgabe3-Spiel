@@ -31,7 +31,6 @@ public class Knight extends Unit {
 		mFightAnimation.setPlayMode(PlayMode.NORMAL);
 		
 		mMoveFrames = new TextureRegion[4];
-		System.out.println("mage2: "+ ResourceLoader.KNIGHT[2].length);
 		
 		for (int i = 0; i < ResourceLoader.KNIGHT[2].length; i++) {
 			mMoveFrames[i] = ResourceLoader.KNIGHT[2][i];

@@ -1,8 +1,5 @@
 package de.potoopirate.arena.player;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-
 import de.potoopirate.arena.minmax.MinMaxNode;
 import de.potoopirate.arena.minmax.TreeFactory;
 
@@ -18,8 +15,7 @@ public class ComputerKI extends Player {
 			super.run();
 			mTree = TreeFactory.buildTree(KI_LEVEL, mCurrentNode.getLeafes().get(0));
 			mCurrentNode = mTree;
-		}
-		
+		}	
 	}
 	
 	private Player mPlayer;
@@ -37,13 +33,15 @@ public class ComputerKI extends Player {
 
 	@Override
 	public void clockAction() {
-		System.out.println("=> " + mCurrentNode.getPointsComputer());
-		if(mPlayer.getmCursor() != CURSOR_IDLE) {
-			mCurrentNode = mCurrentNode.getNext(mPlayer.getCursor());
+//		System.out.println("auswahl => " + mPlayer.getLastCursor());
+		if(mPlayer.getLastCursor() != CURSOR_IDLE) {
+			mCurrentNode = mCurrentNode.getNext(mPlayer.getLastCursor());
 			mCurrentNode = mCurrentNode.getBest();
-			System.out.println(mCurrentNode.toString());
+			System.out.println("jop: " + mCurrentNode.toString());
+		}else{
+			System.out.println("nichts: " + mCurrentNode.toString());
 		}
-		setmCursor(mCurrentNode.getChoose());
+		setCursor(mCurrentNode.getChoose());
 		
 		super.clockAction();
 

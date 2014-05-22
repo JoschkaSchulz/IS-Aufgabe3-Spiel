@@ -20,6 +20,7 @@ public class Player{
 	private int mPlayerNumber;
 	private boolean mChoiseBlocked;
 	private int mCursor;
+	private int mLastCursor;
 	private int mChicken;
 	private int mPoints;
 	
@@ -27,7 +28,7 @@ public class Player{
 	
 	public Player(int playerNumber) {
 		mPlayerNumber = playerNumber;
-		mCursor = CURSOR_IDLE;
+		mCursor = mLastCursor = CURSOR_IDLE;
 		mChoiseBlocked = false;
 		mChicken = mPoints = 0;
 		if(playerNumber == PLAYER_1) {
@@ -81,7 +82,12 @@ public class Player{
 		return mCursor;
 	}
 	
+	public int getLastCursor() {
+		return mLastCursor;
+	}
+	
 	public void resetCursor() {
+		mLastCursor = mCursor;
 		mCursor = CURSOR_IDLE;
 	}
 
@@ -145,11 +151,7 @@ public class Player{
 		return mPlayerNumber;
 	}
 
-	public int getmCursor() {
-		return mCursor;
-	}
-
-	public void setmCursor(int mCursor) {
+	public void setCursor(int mCursor) {
 		this.mCursor = mCursor;
 	}
 }
