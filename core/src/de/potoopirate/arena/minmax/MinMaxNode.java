@@ -276,6 +276,6 @@ public class MinMaxNode {
 
 	@Override
 	public String toString() {
-		return "[Node"+(isPlayerTurn?"(P)":"(C)")+":" + mPlayerQueue + "/" + mComputerQueue + "]";
+		return "[Node"+(isPlayerTurn?"(P)":"(C)")+":" + mPlayerQueue + "/" + mComputerQueue + " - Choose: " + mChoose + "]";
 	}
 }

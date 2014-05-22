@@ -38,13 +38,16 @@ public class ComputerKI extends Player {
 	@Override
 	public void clockAction() {
 		System.out.println("=> " + mCurrentNode.getPointsComputer());
-		mCurrentNode = mCurrentNode.getNext(mPlayer.getCursor());
-		mCurrentNode = mCurrentNode.getBest();
+		if(mPlayer.getmCursor() != CURSOR_IDLE) {
+			mCurrentNode = mCurrentNode.getNext(mPlayer.getCursor());
+			mCurrentNode = mCurrentNode.getBest();
+			System.out.println(mCurrentNode.toString());
+		}
 		setmCursor(mCurrentNode.getChoose());
 		
 		super.clockAction();
 
-		mCurrentNode = mCurrentNode.getNode();
+//		mCurrentNode = mCurrentNode.getNode();
 		
 		if(mCurrentNode.getDeep() <= 2) {
 			mTreeThread = new TreeThread();
