@@ -10,16 +10,34 @@ import com.badlogic.gdx.Gdx;
 import de.potoopirate.arena.player.Player;
 
 public class MinMaxNode {
+	/************************************************************************************************************
+	 * 		static fields
+	 ************************************************************************************************************/
 	private static final int POINTS = 50;
 
-	private String mPlayerQueue;
-	private String mComputerQueue;
-	private int mChoose;
-	private boolean isPlayerTurn;
-	private ArrayList<MinMaxNode> mNodes;
-	private int mPointsPlayer;
-	private int mPointsComputer;
+	/************************************************************************************************************
+	 * 		fields
+	 ************************************************************************************************************/
+	private String mPlayerQueue;			//contains all player units as string
+	private String mComputerQueue;			//contains all computer units as string
+	private int mChoose;					//the choise to get this node
+	private boolean isPlayerTurn;			//which turn is this node
+	private ArrayList<MinMaxNode> mNodes;	//the child nodes of this node
+	private int mPointsPlayer;				//points from player (good to be low)
+	private int mPointsComputer;			//points from computer (good to be high)
 
+	/************************************************************************************************************
+	 * 		constructor
+	 ************************************************************************************************************/
+	
+	/**
+	 * The constructor for this class
+	 * 
+	 * @param choose the choise to get this node
+	 * @param isPlayerTurn if true it is the players turn, false the computers turn
+	 * @param playerQueue the unit queue of the player
+	 * @param computerQueue the unit queue of the computer
+	 */
 	public MinMaxNode(int choose, boolean isPlayerTurn, String playerQueue,
 			String computerQueue) {
 
@@ -34,6 +52,10 @@ public class MinMaxNode {
 		addChooseUnit();
 	}
 
+	/************************************************************************************************************
+	 * 		getter and setter
+	 ************************************************************************************************************/
+	
 	public int getChoose() {
 		return mChoose;
 	}
@@ -102,6 +124,18 @@ public class MinMaxNode {
 		return mComputerQueue;
 	}
 
+	public boolean isPlayerTurn() {
+		return isPlayerTurn;
+	}
+	
+	/************************************************************************************************************
+	 * 		methods
+	 ************************************************************************************************************/
+
+	/**
+	 * Added a new child
+	 * @param node the new node that should be added
+	 */
 	public void addNode(MinMaxNode node) {
 //		node.mPointsComputer = queueFight(mPlayerQueue.split(","),
 //				mComputerQueue.split(","));
@@ -116,10 +150,9 @@ public class MinMaxNode {
 		mNodes.add(node);
 	}
 
-	public boolean isPlayerTurn() {
-		return isPlayerTurn;
-	}
-
+	/**
+	 * Add the choosen unit to the queue
+	 */
 	private void addChooseUnit() {
 		if (isPlayerTurn) {
 			if (!mPlayerQueue.isEmpty() && mChoose != Player.CURSOR_IDLE) {
