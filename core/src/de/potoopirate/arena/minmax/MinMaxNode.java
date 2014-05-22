@@ -80,7 +80,7 @@ public class MinMaxNode {
 		for(MinMaxNode node : mNodes) {
 			nodes = node.getLeafes();
 			for(MinMaxNode n : nodes) {
-				if(n.getPointsComputer() > result.getPointsComputer()) {
+				if(n.getPointsComputer()-n.getPointsPlayer() > result.getPointsComputer()-result.getPointsPlayer()) {
 					result = node;
 				}
 			}
@@ -155,7 +155,7 @@ public class MinMaxNode {
 		
 		 node.mPointsComputer += mPointsComputer;
 		 node.mPointsPlayer += mPointsPlayer;
-		if (!node.isPlayerTurn) {
+		if (node.isPlayerTurn) {
 			node.fight();
 		}
 		mNodes.add(node);
@@ -243,7 +243,7 @@ public class MinMaxNode {
 			} else if (c.equals("M")) {
 				return 1;
 			} else {
-				return 0;
+				return 2;
 			}
 		} else if (p.equals("K")) {
 			if (c.equals("A")) {
@@ -253,7 +253,7 @@ public class MinMaxNode {
 			} else if (c.equals("M")) {
 				return -1;
 			} else {
-				return 0;
+				return 2;
 			}
 		} else if (p.equals("M")) {
 			if (c.equals("A")) {
@@ -263,11 +263,11 @@ public class MinMaxNode {
 			} else if (c.equals("M")) {
 				return 0;
 			} else {
-				return 0;
+				return 2;
 			}
 		}
 
-		return 0;
+		return 2;
 	}
 
 	private void fight() {
