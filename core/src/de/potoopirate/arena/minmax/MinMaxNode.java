@@ -43,13 +43,18 @@ public class MinMaxNode {
 
 		mPlayerQueue = playerQueue;
 		mComputerQueue = computerQueue;
+
 		mChoose = choose;
 		mNodes = new ArrayList<MinMaxNode>();
-		mPointsPlayer = 0;
-		mPointsComputer = 0;
+//		mPointsPlayer = 0;
+//		mPointsComputer = 0;
 
 		this.isPlayerTurn = isPlayerTurn;
 		addChooseUnit();
+		mPointsComputer = queueFight(mPlayerQueue.split(","),
+				mComputerQueue.split(","));
+		mPointsPlayer = queueFight(mComputerQueue.split(","),
+				mPlayerQueue.split(","));
 	}
 
 	/************************************************************************************************************
@@ -137,13 +142,9 @@ public class MinMaxNode {
 	 * @param node the new node that should be added
 	 */
 	public void addNode(MinMaxNode node) {
-//		node.mPointsComputer = queueFight(mPlayerQueue.split(","),
-//				mComputerQueue.split(","));
-//		node.mPointsPlayer = queueFight(mComputerQueue.split(","),
-//				mPlayerQueue.split(","));
 		
-		node.mPointsComputer = mPointsComputer;
-		node.mPointsPlayer = mPointsPlayer;
+		 node.mPointsComputer += mPointsComputer;
+		 node.mPointsPlayer += mPointsPlayer;
 		if (!node.isPlayerTurn) {
 			node.fight();
 		}
@@ -195,17 +196,16 @@ public class MinMaxNode {
 		List<String> playerL = new ArrayList<String>(Arrays.asList(playerQ));
 		playerL.removeAll(Arrays.asList("", null));
 
-		List<String> computerL = new ArrayList<String>(Arrays.asList(playerQ));
+		List<String> computerL = new ArrayList<String>(Arrays.asList(computerQ));
 		computerL.removeAll(Arrays.asList("", null));
 
-
-		if (playerL.size() > computerL.size()) {
+		if (computerL.size() > 0 && playerL.size() > computerL.size()) {
 			for (int i = 0; i < playerL.size(); i++) {
 				points += unitValue(playerL.get(i).substring(0, 1), computerL
 						.get(i % computerL.size()).substring(0, 1));
 
 			}
-		} else if (playerL.size() < computerL.size()) {
+		} else if (playerL.size() > 0 && playerL.size() < computerL.size()) {
 			for (int i = 0; i < computerL.size(); i++) {
 				points += unitValue(
 						playerL.get(i % playerL.size()).substring(0, 1),
@@ -224,6 +224,7 @@ public class MinMaxNode {
 	}
 
 	private static int unitValue(String p, String c) {
+
 		if (p.equals("A")) {
 			if (c.equals("A")) {
 				return 0;
@@ -352,7 +353,7 @@ public class MinMaxNode {
 		if (pLife > 0) {
 			mPlayerQueue += (playerUnits.length > 1 ? "," : "")
 					+ String.valueOf(pUnit) + pLife;
-		} else if(playerUnits.length>0) {
+		} else if (playerUnits.length > 0) {
 			mPointsComputer += 10;
 			if (mPointsComputer >= POINTS) {
 				mPointsComputer = Integer.MAX_VALUE;
@@ -372,7 +373,7 @@ public class MinMaxNode {
 		if (cLife > 0) {
 			mComputerQueue += (computerUnits.length > 1 ? "," : "")
 					+ String.valueOf(cUnit) + cLife;
-		} else if(playerUnits.length>0){
+		} else if (playerUnits.length > 0) {
 			mPointsPlayer += 10;
 			if (mPointsPlayer >= POINTS)
 				mPointsComputer = Integer.MIN_VALUE;
