@@ -28,9 +28,6 @@ public class MinMaxNode {
 		mPointsComputer = 0;
 
 		this.isPlayerTurn = isPlayerTurn;
-		if (this.isPlayerTurn) {
-			fight();
-		}
 		addChooseUnit();
 	}
 	
@@ -103,6 +100,9 @@ public class MinMaxNode {
 	public void addNode(MinMaxNode node) {
 		node.mPointsComputer = mPointsComputer;
 		node.mPointsPlayer = mPointsPlayer;
+		if (!node.isPlayerTurn) {
+			node.fight();
+		}
 		mNodes.add(node);
 	}
 	
@@ -275,6 +275,6 @@ public class MinMaxNode {
 
 	@Override
 	public String toString() {
-		return "[Node"+(isPlayerTurn?"(P)":"(C)")+":" + mPlayerQueue + "/" + mComputerQueue + " - Choose: " + mChoose + "]";
+		return "[Node"+(isPlayerTurn?"(P)":"(C)")+":" + mPlayerQueue + "/" + mComputerQueue + " - Choose: " + mChoose + " - PunkteC: " + mPointsComputer + " - PunkteP: " + mPointsComputer +"]";
 	}
 }

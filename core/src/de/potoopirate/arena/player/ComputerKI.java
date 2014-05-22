@@ -37,6 +37,7 @@ public class ComputerKI extends Player {
 //		if(mPlayer.getLastCursor() != CURSOR_IDLE) {
 			mCurrentNode = mCurrentNode.getNext(mPlayer.getLastCursor());
 			System.out.println("Spieler: " + mCurrentNode.toString());
+			System.out.println("Computer auswal: " + mCurrentNode.getNext(CURSOR_ARCHER));
 			mCurrentNode = mCurrentNode.getBest();
 			System.out.println("Computer: " + mCurrentNode.toString());
 //		}else{
