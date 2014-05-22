@@ -255,14 +255,10 @@ public class MinMaxNode {
 		case 'M':
 			switch (cUnit) {
 			case 'A':
-				mPointsPlayer += 1;
-				mPointsComputer -= 1;
 				pLife -= 1;
 				cLife -= 2;
 				break;
 			case 'K':
-				mPointsPlayer -= 1;
-				mPointsComputer += 1;
 				pLife -= 2;
 				cLife -= 1;
 				break;
@@ -274,14 +270,10 @@ public class MinMaxNode {
 		case 'A':
 			switch (cUnit) {
 			case 'M':
-				mPointsPlayer -= 1;
-				mPointsComputer += 1;
 				pLife -= 2;
 				cLife -= 1;
 				break;
 			case 'K':
-				mPointsPlayer += 1;
-				mPointsComputer -= 1;
 				pLife -= 1;
 				cLife -= 2;
 				break;
