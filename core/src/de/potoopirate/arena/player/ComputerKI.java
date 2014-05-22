@@ -13,7 +13,7 @@ public class ComputerKI extends Player {
 		@Override
 		public void run() {
 			super.run();
-			mTree = TreeFactory.buildTree(KI_LEVEL, mCurrentNode.getLeafes().get(0));
+			mTree = TreeFactory.extendTree(KI_LEVEL, mCurrentNode.getLeafes().get(0));
 			mCurrentNode = mTree;
 		}	
 	}
@@ -34,13 +34,14 @@ public class ComputerKI extends Player {
 	@Override
 	public void clockAction() {
 //		System.out.println("auswahl => " + mPlayer.getLastCursor());
-		if(mPlayer.getLastCursor() != CURSOR_IDLE) {
+//		if(mPlayer.getLastCursor() != CURSOR_IDLE) {
 			mCurrentNode = mCurrentNode.getNext(mPlayer.getLastCursor());
+			System.out.println("Spieler: " + mCurrentNode.toString());
 			mCurrentNode = mCurrentNode.getBest();
-			System.out.println("jop: " + mCurrentNode.toString());
-		}else{
-			System.out.println("nichts: " + mCurrentNode.toString());
-		}
+			System.out.println("Computer: " + mCurrentNode.toString());
+//		}else{
+//			System.out.println("nichts: " + mCurrentNode.toString());
+//		}
 		setCursor(mCurrentNode.getChoose());
 		
 		super.clockAction();

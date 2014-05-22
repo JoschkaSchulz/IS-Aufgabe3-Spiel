@@ -53,7 +53,6 @@ public class MinMaxNode {
 				result = node;
 			}
 		}
-		System.out.println(result.getDeep() + " && " + result.getChoose());
 		return result;
 	}
 	
