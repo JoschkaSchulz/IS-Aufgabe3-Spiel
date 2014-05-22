@@ -8,7 +8,7 @@ import de.potoopirate.arena.player.Player;
 
 public class MinMaxNode {
 	private static final int POINTS = 50;
-	
+
 	private String mPlayerQueue;
 	private String mComputerQueue;
 	private int mChoose;
@@ -30,120 +30,189 @@ public class MinMaxNode {
 		this.isPlayerTurn = isPlayerTurn;
 		addChooseUnit();
 	}
-	
-
 
 	public int getChoose() {
 		return mChoose;
 	}
-	
+
 	public int getPointsComputer() {
 		return mPointsComputer;
 	}
-	
+
+	public int getPointsPlayer() {
+		return mPointsPlayer;
+	}
+
 	public MinMaxNode getBest() {
 		MinMaxNode result = mNodes.get(0);
-		for(MinMaxNode node : mNodes) {
-			if(result.getPointsComputer() < node.getPointsComputer()) {
+		for (MinMaxNode node : mNodes) {
+			if (result.getPointsComputer() - result.mPointsPlayer < node
+					.getPointsComputer() - node.mPointsPlayer) {
 				result = node;
 			}
 		}
 		return result;
 	}
-	
+
 	public MinMaxNode getNext(int choose) {
-		for(MinMaxNode node : mNodes) {
-			if(node.getChoose() == choose) return node;
+		for (MinMaxNode node : mNodes) {
+			if (node.getChoose() == choose)
+				return node;
 		}
 		return null;
 	}
-	
+
 	public int getDeep() {
 		return getDeep(1);
 	}
-	
+
 	private int getDeep(int deep) {
-		if(mNodes.isEmpty()) {
+		if (mNodes.isEmpty()) {
 			return 1;
-		}else{
-			deep += mNodes.get(0).getDeep(deep);	
+		} else {
+			deep += mNodes.get(0).getDeep(deep);
 		}
-		
+
 		return deep;
 	}
-	
+
 	public ArrayList<MinMaxNode> getLeafes() {
 		ArrayList<MinMaxNode> result = new ArrayList<MinMaxNode>();
-		
-		if(mNodes.isEmpty()) {
+
+		if (mNodes.isEmpty()) {
 			result.add(this);
 			return result;
 		}
-		
-		for(MinMaxNode node : mNodes) {
+
+		for (MinMaxNode node : mNodes) {
 			result.addAll(node.getLeafes());
 		}
-		
+
 		return result;
 	}
-	
+
 	public String getPlayerQueue() {
 		return mPlayerQueue;
 	}
-	
+
 	public String getComputerQueue() {
 		return mComputerQueue;
 	}
-	
+
 	public void addNode(MinMaxNode node) {
-		node.mPointsComputer = mPointsComputer;
-		node.mPointsPlayer = mPointsPlayer;
+		node.mPointsComputer = queueFight(mPlayerQueue.split(","),
+				mComputerQueue.split(","));
+		node.mPointsPlayer = queueFight(mComputerQueue.split(","),
+				mPlayerQueue.split(","));
 		if (!node.isPlayerTurn) {
 			node.fight();
 		}
 		mNodes.add(node);
 	}
-	
+
 	public boolean isPlayerTurn() {
 		return isPlayerTurn;
 	}
-	
+
 	private void addChooseUnit() {
-		if(isPlayerTurn) {
-			if(!mPlayerQueue.isEmpty() && mChoose != Player.CURSOR_IDLE) {
+		if (isPlayerTurn) {
+			if (!mPlayerQueue.isEmpty() && mChoose != Player.CURSOR_IDLE) {
 				mPlayerQueue += ",";
 			}
-			
-			switch(mChoose) {
-				case Player.CURSOR_ARCHER:
-					mPlayerQueue += "A3";
-					break;
-				case Player.CURSOR_KNIGHT:
-					mPlayerQueue += "K3";
-					break;
-				case Player.CURSOR_MAGE:
-					mPlayerQueue += "M3";
-					break;
+
+			switch (mChoose) {
+			case Player.CURSOR_ARCHER:
+				mPlayerQueue += "A3";
+				break;
+			case Player.CURSOR_KNIGHT:
+				mPlayerQueue += "K3";
+				break;
+			case Player.CURSOR_MAGE:
+				mPlayerQueue += "M3";
+				break;
 			}
-		}else{
-			if(!mComputerQueue.isEmpty() && mChoose != Player.CURSOR_IDLE) {
+		} else {
+			if (!mComputerQueue.isEmpty() && mChoose != Player.CURSOR_IDLE) {
 				mComputerQueue += ",";
 			}
-			
-			switch(mChoose) {
-				case Player.CURSOR_ARCHER:
-					mComputerQueue += "A3";
-					break;
-				case Player.CURSOR_KNIGHT:
-					mComputerQueue += "K3";
-					break;
-				case Player.CURSOR_MAGE:
-					mComputerQueue += "M3";
-					break;
+
+			switch (mChoose) {
+			case Player.CURSOR_ARCHER:
+				mComputerQueue += "A3";
+				break;
+			case Player.CURSOR_KNIGHT:
+				mComputerQueue += "K3";
+				break;
+			case Player.CURSOR_MAGE:
+				mComputerQueue += "M3";
+				break;
 			}
 		}
 	}
-	
+
+	private int queueFight(String[] playerQ, String[] computerQ) {
+		int points = 0;
+		System.out.println("player "+ playerQ.length + " computer "+ computerQ.length);
+		if (playerQ.length > computerQ.length) {
+			for (int i = 0; i < playerQ.length; i++) {
+				points += unitValue(playerQ[i].substring(0, 1), computerQ[i
+						% computerQ.length].substring(0, 1));
+
+			}
+		} else if (playerQ.length < computerQ.length) {
+			for (int i = 0; i < playerQ.length; i++) {
+				points += unitValue(
+						playerQ[i % computerQ.length].substring(0, 1),
+						computerQ[i].substring(0, 1));
+
+			}
+		} else if (playerQ.length > 1 && playerQ.length == computerQ.length) {
+			for (int i = 0; i < playerQ.length; i++) {
+				points += unitValue(playerQ[i].substring(0, 1),
+						computerQ[i].substring(0, 1));
+			}
+		}
+
+		return points;
+
+	}
+
+	private static int unitValue(String p, String c) {
+		if (p.equals("A")) {
+			if (c.equals("A")) {
+				return 0;
+			} else if (c.equals("K")) {
+				return -1;
+			} else if (c.equals("M")) {
+				return 1;
+			} else {
+				return 0;
+			}
+		} else if (p.equals("K")) {
+			if (c.equals("A")) {
+				return 1;
+			} else if (c.equals("K")) {
+				return 0;
+			} else if (c.equals("M")) {
+				return -1;
+			} else {
+				return 0;
+			}
+		} else if (p.equals("M")) {
+			if (c.equals("A")) {
+				return -1;
+			} else if (c.equals("K")) {
+				return 1;
+			} else if (c.equals("M")) {
+				return 0;
+			} else {
+				return 0;
+			}
+		}
+
+		return 0;
+	}
+
 	private void fight() {
 		char pUnit = ' ';
 		int pLife = 0;
@@ -243,10 +312,11 @@ public class MinMaxNode {
 		}
 
 		if (pLife > 0) {
-			mPlayerQueue += (playerUnits.length>1?",":"") + String.valueOf(pUnit) + pLife;
-		} else if(pLife <= 0 && mPlayerQueue.length() > 0){
+			mPlayerQueue += (playerUnits.length > 1 ? "," : "")
+					+ String.valueOf(pUnit) + pLife;
+		} else {
 			mPointsComputer += 10;
-			if(mPointsComputer >= POINTS) {
+			if (mPointsComputer >= POINTS) {
 				mPointsComputer = Integer.MAX_VALUE;
 			}
 		}
@@ -262,10 +332,11 @@ public class MinMaxNode {
 		}
 
 		if (cLife > 0) {
-			mComputerQueue += (computerUnits.length>1?",":"") + String.valueOf(cUnit) + cLife;
-		} else if(cLife <= 0 && mComputerQueue.length() > 0){
-			mPointsComputer += 10;
-			if (mPointsComputer >= POINTS)
+			mComputerQueue += (computerUnits.length > 1 ? "," : "")
+					+ String.valueOf(cUnit) + cLife;
+		} else {
+			mPointsPlayer += 10;
+			if (mPointsPlayer >= POINTS)
 				mPointsComputer = Integer.MIN_VALUE;
 		}
 
@@ -273,6 +344,9 @@ public class MinMaxNode {
 
 	@Override
 	public String toString() {
-		return "[Node"+(isPlayerTurn?"(P)":"(C)")+":" + mPlayerQueue + "/" + mComputerQueue + " - Choose: " + mChoose + " - PunkteC: " + mPointsComputer + " - PunkteP: " + mPointsComputer +"]";
+		return "[Node" + (isPlayerTurn ? "(P)" : "(C)") + ":" + mPlayerQueue
+				+ "/" + mComputerQueue + " - Choose: " + mChoose
+				+ " - PunkteC: " + mPointsComputer + " - PunkteP: "
+				+ mPointsComputer + "]";
 	}
 }
