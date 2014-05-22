@@ -6,7 +6,11 @@ import de.potoopirate.arena.minmax.TreeFactory;
 
 public class ComputerKI extends Player {
 
+<<<<<<< HEAD
 	private static final int KI_LEVEL = 5;
+=======
+	private static final int KI_LEVEL = 3;
+>>>>>>> 45ed838fa3201079b7d42bdc06c0ce5757b44ef1
 	
 	private class TreeThread extends Thread {
 

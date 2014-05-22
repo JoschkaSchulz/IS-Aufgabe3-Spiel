@@ -76,6 +76,7 @@ public class MinMaxNode {
 	public MinMaxNode getBest() {
 		MinMaxNode result = mNodes.get(0);
 		
+<<<<<<< HEAD
 		List<MinMaxNode> nodes = null;
 		for(MinMaxNode node : mNodes) {
 			nodes = node.getLeafes();
@@ -89,8 +90,24 @@ public class MinMaxNode {
 //			if (result.getPointsComputer() - result.mPointsPlayer < node
 //					.getPointsComputer() - node.mPointsPlayer) {
 //				result = node;
+=======
+//		List<MinMaxNode> nodes = null;
+//		for(MinMaxNode node : mNodes) {
+//			nodes = node.getLeafes();
+//			for(MinMaxNode n : nodes) {
+//				if(n.getPointsComputer() > result.getPointsComputer()) {
+//					result = node;
+//				}
+>>>>>>> 45ed838fa3201079b7d42bdc06c0ce5757b44ef1
 //			}
 //		}
+		
+		for (MinMaxNode node : mNodes) {
+			if (result.getPointsComputer() - result.mPointsPlayer < node
+					.getPointsComputer() - node.mPointsPlayer) {
+				result = node;
+			}
+		}
 		return result;
 	}
 
