@@ -2,10 +2,8 @@ package de.potoopirate.arena.minmax;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-<<<<<<< HEAD
-=======
+
 import java.util.List;
->>>>>>> 725303eea0d87b9f059d115dee8b15dded740557
 
 import com.badlogic.gdx.Gdx;
 
@@ -157,35 +155,31 @@ public class MinMaxNode {
 
 	private int queueFight(String[] playerQ, String[] computerQ) {
 		int points = 0;
-<<<<<<< HEAD
-		System.out.println("player "+ playerQ.length +Arrays.toString(playerQ) + " computer "+ computerQ.length +Arrays.toString(computerQ));
-=======
-		
+
 		List<String> playerL = new ArrayList<String>(Arrays.asList(playerQ));
 		playerL.removeAll(Arrays.asList("", null));
-		
+
 		List<String> computerL = new ArrayList<String>(Arrays.asList(playerQ));
 		computerL.removeAll(Arrays.asList("", null));
-		
-		System.out.println("player "+ playerQ.length + " computer "+ computerQ.length);
->>>>>>> 725303eea0d87b9f059d115dee8b15dded740557
-		if (playerQ.length > computerQ.length) {
-			for (int i = 0; i < playerQ.length; i++) {
-				points += unitValue(playerQ[i].substring(0, 1), computerQ[i
-						% computerQ.length].substring(0, 1));
+
+
+		if (playerL.size() > computerL.size()) {
+			for (int i = 0; i < playerL.size(); i++) {
+				points += unitValue(playerL.get(i).substring(0, 1), computerL
+						.get(i % computerL.size()).substring(0, 1));
 
 			}
-		} else if (playerQ.length < computerQ.length) {
-			for (int i = 0; i < playerQ.length; i++) {
+		} else if (playerL.size() < computerL.size()) {
+			for (int i = 0; i < computerL.size(); i++) {
 				points += unitValue(
-						playerQ[i % computerQ.length].substring(0, 1),
-						computerQ[i].substring(0, 1));
+						playerL.get(i % playerL.size()).substring(0, 1),
+						computerL.get(i).substring(0, 1));
 
 			}
-		} else if (playerQ.length > 1 && playerQ.length == computerQ.length) {
-			for (int i = 0; i < playerQ.length; i++) {
-				points += unitValue(playerQ[i].substring(0, 1),
-						computerQ[i].substring(0, 1));
+		} else if (playerL.size() > 0 && playerL.size() == computerL.size()) {
+			for (int i = 0; i < playerL.size(); i++) {
+				points += unitValue(playerL.get(i).substring(0, 1), computerL
+						.get(i).substring(0, 1));
 			}
 		}
 
@@ -330,7 +324,7 @@ public class MinMaxNode {
 		if (pLife > 0) {
 			mPlayerQueue += (playerUnits.length > 1 ? "," : "")
 					+ String.valueOf(pUnit) + pLife;
-		} else {
+		} else if(playerUnits.length>0) {
 			mPointsComputer += 10;
 			if (mPointsComputer >= POINTS) {
 				mPointsComputer = Integer.MAX_VALUE;
@@ -350,7 +344,7 @@ public class MinMaxNode {
 		if (cLife > 0) {
 			mComputerQueue += (computerUnits.length > 1 ? "," : "")
 					+ String.valueOf(cUnit) + cLife;
-		} else {
+		} else if(playerUnits.length>0){
 			mPointsPlayer += 10;
 			if (mPointsPlayer >= POINTS)
 				mPointsComputer = Integer.MIN_VALUE;
