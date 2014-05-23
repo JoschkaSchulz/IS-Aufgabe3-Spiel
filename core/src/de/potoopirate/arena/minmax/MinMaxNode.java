@@ -76,6 +76,21 @@ public class MinMaxNode {
 	public MinMaxNode getBest() {
 		MinMaxNode result = mNodes.get(0);
 		
+<<<<<<< HEAD
+		List<MinMaxNode> nodes = null;
+		for(MinMaxNode node : mNodes) {
+			nodes = node.getLeafes();
+			for(MinMaxNode n : nodes) {
+				if(n.getPointsComputer()-n.getPointsPlayer() > result.getPointsComputer()-result.getPointsPlayer()) {
+					result = node;
+				}
+			}
+		}
+//		for (MinMaxNode node : mNodes) {
+//			if (result.getPointsComputer() - result.mPointsPlayer < node
+//					.getPointsComputer() - node.mPointsPlayer) {
+//				result = node;
+=======
 //		List<MinMaxNode> nodes = null;
 //		for(MinMaxNode node : mNodes) {
 //			nodes = node.getLeafes();
@@ -83,6 +98,7 @@ public class MinMaxNode {
 //				if(n.getPointsComputer() > result.getPointsComputer()) {
 //					result = node;
 //				}
+>>>>>>> 45ed838fa3201079b7d42bdc06c0ce5757b44ef1
 //			}
 //		}
 		
@@ -244,7 +260,7 @@ public class MinMaxNode {
 			} else if (c.equals("M")) {
 				return 1;
 			} else {
-				return 0;
+				return 2;
 			}
 		} else if (p.equals("K")) {
 			if (c.equals("A")) {
@@ -254,7 +270,7 @@ public class MinMaxNode {
 			} else if (c.equals("M")) {
 				return -1;
 			} else {
-				return 0;
+				return 2;
 			}
 		} else if (p.equals("M")) {
 			if (c.equals("A")) {
@@ -264,11 +280,11 @@ public class MinMaxNode {
 			} else if (c.equals("M")) {
 				return 0;
 			} else {
-				return 0;
+				return 2;
 			}
 		}
 
-		return 0;
+		return 2;
 	}
 
 	private void fight() {

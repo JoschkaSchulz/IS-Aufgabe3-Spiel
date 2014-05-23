@@ -23,9 +23,6 @@ public class TreeFactory {
 		if(level > 0) {
 			for(MinMaxNode node : root.getLeafes()) {
 				isPlayerTurn = !node.isPlayerTurn();
-				idleNode = new MinMaxNode(Player.CURSOR_IDLE, !isPlayerTurn, node.getPlayerQueue(), node.getComputerQueue());
-				node.addNode(idleNode);
-				buildTree(level-1, idleNode);
 
 				archerNode = new MinMaxNode(Player.CURSOR_ARCHER, !isPlayerTurn, node.getPlayerQueue(), node.getComputerQueue());
 				node.addNode(archerNode);
@@ -39,6 +36,9 @@ public class TreeFactory {
 				node.addNode(knightNode);
 				buildTree(level-1, knightNode);
 
+				idleNode = new MinMaxNode(Player.CURSOR_IDLE, !isPlayerTurn, node.getPlayerQueue(), node.getComputerQueue());
+				node.addNode(idleNode);
+				buildTree(level-1, idleNode);
 			}
 		}
 		
