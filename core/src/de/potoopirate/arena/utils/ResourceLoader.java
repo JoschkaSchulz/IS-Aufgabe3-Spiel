@@ -2,6 +2,7 @@ package de.potoopirate.arena.utils;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class ResourceLoader {
@@ -24,9 +25,15 @@ public class ResourceLoader {
 	static public TextureRegion RIGHT_PLAYER_BACKGROUND;
 	static public TextureRegion RING;
 	
+	static public TextureAtlas PARTICLE_SELECTION_EMITTER;
+	
 	static public BitmapFont FONT;
 	
 	static public void load() {
+		Texture particle = new Texture("particle/particle.png");
+		PARTICLE_SELECTION_EMITTER = new TextureAtlas();
+		PARTICLE_SELECTION_EMITTER.addRegion("particle", particle, 0, 0, 16, 16);
+		
 		Texture unitDummy = new Texture("gfx/unitdummy.png");
 		UNIT_DUMMY = TextureRegion.split(unitDummy, 128, 128);
 		Texture moveDummy = new Texture("gfx/moveit.png");

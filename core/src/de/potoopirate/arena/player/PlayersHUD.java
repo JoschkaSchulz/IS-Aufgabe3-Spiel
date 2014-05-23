@@ -3,6 +3,7 @@ package de.potoopirate.arena.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import de.potoopirate.arena.particle.SelectionEmitter;
 import de.potoopirate.arena.utils.ResourceLoader;
 
 public class PlayersHUD {
@@ -10,9 +11,15 @@ public class PlayersHUD {
 	private Player mPlayer1;
 	private Player mPlayer2;
 	
+	private SelectionEmitter mCursor1;
+	private SelectionEmitter mCursor2;
+	
 	public PlayersHUD(Player player1, Player player2) {
 		mPlayer1 = player1;
 		mPlayer2 = player2;
+		
+		mCursor1 = new SelectionEmitter();
+		mCursor2 = new SelectionEmitter();
 	}
 	
 	public void draw(SpriteBatch batch) {
@@ -25,16 +32,20 @@ public class PlayersHUD {
 		switch(mPlayer1.getCursor()) {
 			case Player.CURSOR_KNIGHT:
 				batch.draw(ResourceLoader.CURSOR, 224-46+122, 18);
+				mCursor1.setPosition(224-46+122, 18);
 				break;
 			case Player.CURSOR_MAGE:
 				batch.draw(ResourceLoader.CURSOR, 224-46-112, 20);
+				mCursor1.setPosition(224-46-112, 20);
 				break;
 			case Player.CURSOR_ARCHER:
 				batch.draw(ResourceLoader.CURSOR, 224-46, 15+128);
+				mCursor1.setPosition(224-46, 15+128);
 				break;
 			default:
 			case Player.CURSOR_IDLE:
 				batch.draw(ResourceLoader.CURSOR, 224-46, 64);
+				mCursor1.setPosition(224-46, 64);
 				break;
 		}
 		
@@ -47,19 +58,25 @@ public class PlayersHUD {
 		switch(mPlayer2.getCursor()) {
 			case Player.CURSOR_KNIGHT:
 				batch.draw(ResourceLoader.CURSOR, 768+224+157, 18);
+				mCursor2.setPosition(768+224+157, 18);
 				break;
 			case Player.CURSOR_MAGE:
 				batch.draw(ResourceLoader.CURSOR, 768+96+51, 20);
+				mCursor2.setPosition(768+96+51, 20);
 				break;
 			case Player.CURSOR_ARCHER:
 				batch.draw(ResourceLoader.CURSOR, 800+227, 15+64+64);
+				mCursor2.setPosition(800+227, 15+64+64);
 				break;
 			default:
 			case Player.CURSOR_IDLE:
 				batch.draw(ResourceLoader.CURSOR, 800+227, 64);
+				mCursor2.setPosition(800+227, 64);
 				break;
 		}
 		
+		mCursor1.draw(batch);
+		mCursor2.draw(batch);
 		
 		ResourceLoader.FONT.draw(batch, "Punkte: " + mPlayer1.getPoints(), 10, 196);
 		ResourceLoader.FONT.draw(batch, "Punkte: " + mPlayer2.getPoints(), Gdx.graphics.getWidth()-100, 196);

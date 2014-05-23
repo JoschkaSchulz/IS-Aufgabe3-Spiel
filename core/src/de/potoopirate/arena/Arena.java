@@ -2,6 +2,7 @@ package de.potoopirate.arena;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 
 import de.potoopirate.arena.game.Game;
 import de.potoopirate.arena.utils.ResourceLoader;
@@ -24,11 +25,10 @@ public class Arena extends com.badlogic.gdx.Game {
         this.setScreen(mGame);
     }
     
-//    @Override
-//	public void resize(int width, int height) {
-////		super.resize(width, height);
-//		Gdx.graphics.setDisplayMode(width, height, false);
-//    }
+    @Override
+	public void resize(int width, int height) {
+		super.resize(width, height);
+    }
 
 	public void render() {
         super.render(); //important!

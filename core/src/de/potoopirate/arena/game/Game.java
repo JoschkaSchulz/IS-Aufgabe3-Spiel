@@ -13,6 +13,7 @@ import de.potoopirate.arena.Arena;
 import de.potoopirate.arena.game.Clock.IClockListener;
 import de.potoopirate.arena.minmax.MinMaxNode;
 import de.potoopirate.arena.minmax.TreeFactory;
+import de.potoopirate.arena.particle.SelectionEmitter;
 import de.potoopirate.arena.player.ComputerKI;
 import de.potoopirate.arena.player.Player;
 import de.potoopirate.arena.player.PlayersHUD;
@@ -35,7 +36,7 @@ public class Game implements Screen, IClockListener {
 	private PlayersHUD mPlayersHud;
 
 	private Arena mArena;
-
+	
 	public Game(Arena arena) {
 		mPlayer1 = new Player(Player.PLAYER_1);
 		mPlayer2 = new ComputerKI(Player.PLAYER_2, mPlayer1);/*new Player(Player.PLAYER_2);*/
@@ -127,7 +128,7 @@ public class Game implements Screen, IClockListener {
 
 		// Clock
 		mClock.draw(mArena.getBatch());
-
+		
 		mArena.getBatch().end();
 
 		//Debug Renderer
